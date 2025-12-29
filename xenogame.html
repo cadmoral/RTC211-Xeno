@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XENO : La Simulation</title>
+    <!-- Polices identiques à la Landing Page -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,400&family=Mulish:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Palette identique à la Landing Page */
+            --bg-paper: #f9f9f9;
+            --text-dark: #2c3e50;
+            
+            --pig-main: #e57373;   /* Rouge/Rose Pastel - Utilisé pour NON/DANGER */
+            --human-main: #64b5f6; /* Bleu Pastel - Utilisé pour OUI/HUMAIN */
+            --friction-main: #fbc02d; /* Jaune - Utilisé pour BUDGET/INFO */
+            --opinion-main: #81c784; /* Vert Pastel - Pour Opinion/Succès */
+
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-blur: blur(12px);
+            
+            --font-serif: 'Lora', serif;
+            --font-sans: 'Mulish', sans-serif;
+        }
+
+        * { box-sizing: border-box; user-select: none; }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--bg-paper);
+            color: var(--text-dark);
+            font-family: var(--font-sans);
+            height: 100vh; overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+
+        /* --- TEXTURE GRAIN --- */
+        .grain {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 0;
+        }
+
+        /* --- HEADER --- */
+        .header-game {
+            position: absolute; top: 0; width: 100%; height: 60px;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 20;
+        }
+        .header-title {
+            font-family: var(--font-serif); font-weight: 600; font-size: 1.1rem;
+            color: #888; letter-spacing: 2px; text-transform: uppercase;
+        }
+
+        /* --- ÉCRAN DE JEU --- */
+        #game-view {
+            height: 100%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+            position: relative; transition: opacity 0.5s; padding: 60px 20px 30px 20px; z-index: 1;
+        }
+
+        /* HUD (Jauges) */
+        .hud {
+            display: flex; gap: 15px; width: 100%; max-width: 500px;
+            background: var(--glass-bg); padding: 15px 25px; border-radius: 50px;
+            border: 1px solid rgba(0,0,0,0.05); backdrop-filter: var(--glass-blur);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+        .stat-box { flex: 1; display: flex; flex-direction: column; align-items: center; }
+        .stat-icon { font-size: 1.2rem; margin-bottom: 5px; opacity: 0.8; }
+        .bar-bg { width: 100%; height: 6px; background: rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; }
+        .bar-fill { height: 100%; width: 50%; transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); border-radius: 10px; }
+
+        /* Carte Centrale */
+        .game-area {
+            flex-grow: 1; display: flex; justify-content: center; align-items: center;
+            width: 100%; perspective: 1000px; position: relative;
+        }
+
+        .card {
+            width: 320px; height: 480px;
+            /* Glassmorphism Card Style */
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 1);
+            border-radius: 24px;
+            padding: 30px;
+            
+            box-shadow: 
+                0 20px 50px rgba(0,0,0,0.05),
+                0 1px 3px rgba(0,0,0,0.05); /* Ombre douce */
+                
+            display: flex; flex-direction: column; text-align: center;
+            position: absolute;
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s;
+        }
+
+        /* Décoration Carte */
+        .card::before {
+            content:''; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px;
+            border: 1px solid rgba(0,0,0,0.03); border-radius: 16px; pointer-events: none;
+        }
+
+        .actor-avatar {
+            width: 80px; height: 80px; margin: 0 auto; border-radius: 50%;
+            background: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+        }
+        
+        .actor-title {
+            font-family: var(--font-serif); font-size: 1.4rem; color: var(--text-dark);
+            font-weight: 700; line-height: 1.1; margin-bottom: 5px;
+        }
+        
+        .category-badge {
+            display: inline-block; align-self: center;
+            padding: 4px 12px; margin-bottom: 25px;
+            background: #f0f0f0; border-radius: 30px;
+            font-size: 0.65rem; font-weight: 800; color: #888;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        
+        .scenario-text {
+            font-size: 1.05rem; line-height: 1.7; color: #555;
+            font-style: italic; font-family: var(--font-serif);
+            flex-grow: 1; display: flex; align-items: center; justify-content: center;
+        }
+
+        /* Feedback OUI/NON */
+        .feedback {
+            position: absolute; top: 40px; 
+            font-family: var(--font-sans); font-weight: 900;
+            font-size: 3rem; text-transform: uppercase; letter-spacing: 3px;
+            opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 20;
+        }
+        .fb-reject { right: 20px; color: var(--pig-main); transform: rotate(15deg); }
+        .fb-accept { left: 20px; color: var(--human-main); transform: rotate(-15deg); }
+
+        /* Contrôles */
+        .controls {
+            width: 100%; max-width: 360px; display: flex; gap: 20px; z-index: 20;
+            padding-bottom: 20px;
+        }
+        .btn-action {
+            flex: 1; padding: 18px; border: none; border-radius: 16px;
+            font-family: var(--font-sans); font-size: 0.9rem; font-weight: 800; 
+            text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
+            transition: all 0.3s;
+            background: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 2px solid transparent;
+        }
+        
+        /* Bouton Refuser (Style Porc/Danger) */
+        .btn-reject { color: var(--pig-main); }
+        .btn-reject:hover { 
+            background: var(--pig-main); color: white; 
+            transform: translateY(-3px); box-shadow: 0 10px 20px var(--pig-glow);
+        }
+        
+        /* Bouton Accepter (Style Humain/Futur) */
+        .btn-accept { color: var(--human-main); }
+        .btn-accept:hover { 
+            background: var(--human-main); color: white; 
+            transform: translateY(-3px); box-shadow: 0 10px 20px var(--human-glow);
+        }
+
+        /* --- DASHBOARD FINAL --- */
+        #dashboard-view {
+            display: none; height: 100vh; width: 100vw;
+            overflow-y: auto; padding: 60px 20px;
+            background: var(--bg-paper); z-index: 10;
+        }
+
+        .dash-container { max-width: 1000px; margin: 0 auto; }
+
+        .dash-header { text-align: center; margin-bottom: 60px; }
+        .dash-title {
+            font-family: var(--font-serif); font-size: 2.8rem; margin: 0; color: var(--text-dark);
+        }
+        .dash-subtitle { 
+            font-family: var(--font-sans); color: #888; margin-top: 10px; 
+            text-transform: uppercase; letter-spacing: 2px; font-weight: 700; font-size: 0.8rem;
+        }
+        
+        .result-banner {
+            background: #fff; padding: 30px; border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee;
+            margin: 30px auto; max-width: 700px;
+        }
+        .result-grade { 
+            font-family: var(--font-serif); font-size: 1.8rem; color: var(--friction-main); 
+            margin-bottom: 10px; font-weight: 600; 
+        }
+
+        /* Grille Résultats style "Glass Cards" */
+        .grid-container {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px; margin-bottom: 50px;
+        }
+
+        .actor-card {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.8);
+            border-radius: 16px; padding: 25px;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            display: flex; flex-direction: column;
+        }
+        .actor-card:hover { transform: translateY(-5px); background: #fff; box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+        
+        .ac-header { display: flex; align-items: center; margin-bottom: 15px; }
+        .ac-icon { font-size: 1.8rem; margin-right: 15px; filter: grayscale(0.2); }
+        .ac-name { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 600; color: #222; }
+        .ac-cat { font-size: 0.65rem; color: #999; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; }
+        
+        .ac-body { font-size: 0.95rem; color: #555; line-height: 1.6; font-style: italic; flex-grow: 1; margin-bottom: 20px; }
+        .ac-context { 
+            padding-top: 15px; border-top: 1px solid #f0f0f0;
+            font-size: 0.85rem; color: #666; 
+        }
+        .label-sts { 
+            color: var(--friction-main); font-weight: 800; font-size: 0.7rem; 
+            text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px;
+        }
+
+        .restart-btn-dash {
+            display: block; margin: 0 auto; padding: 15px 40px;
+            background: var(--text-dark); color: #fff; border: none; border-radius: 50px;
+            font-family: var(--font-sans); font-size: 0.9rem; font-weight: 800; letter-spacing: 1.5px;
+            cursor: pointer; text-transform: uppercase; transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .restart-btn-dash:hover { transform: scale(1.05); background: var(--friction-main); }
+
+    </style>
+</head>
+<body>
+
+    <div class="grain"></div>
+
+    <div class="header-game">
+        <div class="header-title">Simulation 2050</div>
+    </div>
+
+    <!-- --- VUE JEU --- -->
+    <div id="game-view">
+        <!-- Jauges -->
+        <div class="hud">
+            <div class="stat-box" title="Santé">
+                <span class="stat-icon">🧬</span>
+                <div class="bar-bg"><div class="bar-fill" id="bar-sante" style="background: var(--human-main)"></div></div>
+            </div>
+            <div class="stat-box" title="Éthique">
+                <span class="stat-icon">⚖️</span>
+                <div class="bar-bg"><div class="bar-fill" id="bar-ethique" style="background: var(--friction-main)"></div></div>
+            </div>
+            <div class="stat-box" title="Budget">
+                <span class="stat-icon">💶</span>
+                <div class="bar-bg"><div class="bar-fill" id="bar-budget" style="background: #999"></div></div>
+            </div>
+            <div class="stat-box" title="Opinion">
+                <span class="stat-icon">📢</span>
+                <div class="bar-bg"><div class="bar-fill" id="bar-opinion" style="background: var(--opinion-main)"></div></div>
+            </div>
+        </div>
+
+        <!-- Zone Carte -->
+        <div class="game-area">
+            <div class="feedback fb-accept" id="fb-accept">OUI</div>
+            <div class="feedback fb-reject" id="fb-reject">NON</div>
+
+            <div class="card" id="game-card">
+                <div class="actor-avatar" id="c-icon">👨‍⚕️</div>
+                <div class="actor-title" id="c-actor">Acteur</div>
+                <span class="category-badge" id="c-cat">Catégorie</span>
+                <div class="scenario-text" id="c-text">Chargement...</div>
+            </div>
+        </div>
+
+        <!-- Boutons -->
+        <div class="controls">
+            <button class="btn-action btn-reject" id="btn-left" onclick="playerSwipe('left')">Non</button>
+            <button class="btn-action btn-accept" id="btn-right" onclick="playerSwipe('right')">Oui</button>
+        </div>
+    </div>
+
+    <!-- --- VUE DASHBOARD FINAL --- -->
+    <div id="dashboard-view">
+        <div class="dash-container">
+            <div class="dash-header">
+                <h1 class="dash-title">Rapport de Mandat</h1>
+                <p class="dash-subtitle">Observatoire des controverses xénobiologiques</p>
+                
+                <div class="result-banner">
+                    <div class="result-grade" id="final-title">TITRE DE FIN</div>
+                    <div id="final-desc" style="text-align: center; color: #666; line-height: 1.6;">Description</div>
+                </div>
+            </div>
+
+            <div class="grid-container" id="actors-grid">
+                <!-- Les cartes sont générées ici par JS -->
+            </div>
+
+            <button class="restart-btn-dash" onclick="location.reload()">Nouvelle Simulation</button>
+        </div>
+    </div>
+
+    <script>
+        // --- DONNEES DU JEU (Scénarios) ---
+        const scenarios = [
+            {
+                actor: "Start-up 'Chimera-X'",
+                icon: "🧬",
+                cat: "Technique & Innovation",
+                text: "Notre porc génétiquement édité supprime le rejet hyperaigu, mais nécessite d'altérer 60 gènes. Lancer la production ?",
+                left: "Trop risqué",
+                right: "Autoriser",
+                statsL: {sante: 10, ethique: 10, budget: -10, opinion: 0},
+                statsR: {sante: -10, ethique: -20, budget: 10, opinion: 5},
+                stsContext: "Le 'Bricolage du vivant' : Transformer l'animal en dispositif médical standardisé pose la question des limites de l'ingénierie biologique.",
+                realData: "Réalité : eGenesis a greffé un rein de porc (69 modifs génétiques) sur un patient vivant en 2024."
+            },
+            {
+                actor: "Autorités Religieuses",
+                icon: "🕌",
+                cat: "Culture & Croyance",
+                text: "Le porc est impur pour de nombreux croyants. Si la xénogreffe devient la norme, quid de la liberté de culte ?",
+                left: "Alternative obligatoire",
+                right: "Laïcité médicale",
+                statsL: {sante: 0, ethique: 10, budget: -20, opinion: 10},
+                statsR: {sante: 10, budget: 10, ethique: 0, opinion: -20},
+                stsContext: "L'acceptabilité sociale ne dépend pas que de la technique, mais des valeurs culturelles profondes et du symbolisme animal.",
+                realData: "Débat : Le concept de 'Pikuach Nefesh' (sauver une vie) prévaut souvent, mais le frein psychologique reste fort."
+            },
+            {
+                actor: "Assurance Maladie",
+                icon: "📉",
+                cat: "Économie",
+                text: "Une greffe coûte 80k€. Une vie de dialyse coûte 1M€. Rendons la xénogreffe obligatoire avant toute dialyse chronique.",
+                left: "Libre choix",
+                right: "Logique comptable",
+                statsL: {sante: 0, budget: -30, ethique: 10, opinion: 10},
+                statsR: {sante: 10, budget: 30, ethique: -10, opinion: -30},
+                stsContext: "L'économie de la promesse : La biotechnologie est souvent vendue comme la solution miracle aux déficits publics de santé.",
+                realData: "Contexte : La pénurie d'organes coûte cher en soins palliatifs et traitements d'attente."
+            },
+            {
+                actor: "Assoc. 'Sentience'",
+                icon: "🐷",
+                cat: "Éthique Animale",
+                text: "Ces porcs vivent en bulles stériles sans jamais voir le ciel pour éviter les pathogènes. C'est inacceptable.",
+                left: "Exiger le plein air",
+                right: "Sécurité d'abord",
+                statsL: {sante: -30, ethique: 30, budget: -10, opinion: 10},
+                statsR: {sante: 20, ethique: -30, budget: 0, opinion: -10},
+                stsContext: "Le statut de l'animal : Est-il un objet technique ou un être sensible ? Le concept de 'sacrifice nécessaire' est contesté.",
+                realData: "Technique : Les porcs doivent être 'DPF' (Designated Pathogen Free), imposant un confinement total."
+            },
+            {
+                actor: "Institut Pasteur",
+                icon: "🦠",
+                cat: "Risque Sanitaire",
+                text: "Soupçon de réactivation d'un rétrovirus porcin (PERV-C) chez un greffé. Faut-il abattre le cheptel source ?",
+                left: "Abattage préventif",
+                right: "Attendre preuves",
+                statsL: {sante: 20, ethique: -20, budget: -30, opinion: -10},
+                statsR: {sante: -40, ethique: 10, budget: 10, opinion: 0},
+                stsContext: "Le risque de Zoonose : Transformer un problème individuel (défaillance d'organe) en risque collectif (pandémie).",
+                realData: "Histoire : Le patient David Bennett (2022) est décédé avec des traces de virus porcin dans le greffon."
+            },
+            {
+                actor: "Bio-Imprimeurs 3D",
+                icon: "🖨️",
+                cat: "Technologie Rivale",
+                text: "La bio-impression de tissus progresse. Détournez les fonds de la xénogreffe pour financer nos recherches.",
+                left: "Garder cap Xéno",
+                right: "Financer la 3D",
+                statsL: {sante: 10, budget: 10, ethique: -10, opinion: 0},
+                statsR: {sante: -10, budget: -20, ethique: 20, opinion: 10},
+                stsContext: "Le verrouillage technologique : Choisir une voie aujourd'hui peut empêcher le développement d'alternatives futures.",
+                realData: "Concurrence : Carmat et la bio-impression sont les rivaux directs de la xénogreffe."
+            },
+            {
+                actor: "Famille du Patient",
+                icon: "🧠",
+                cat: "Identité",
+                text: "Le patient se sent 'animal' depuis la greffe et fait un rejet psychologique. Il demande le retrait de l'organe.",
+                left: "Support psy",
+                right: "Accepter le retrait",
+                statsL: {sante: 10, budget: -10, ethique: 10, opinion: 0},
+                statsR: {sante: -50, budget: -20, ethique: 0, opinion: -10},
+                stsContext: "La frontière Humain/Non-humain : Comment la biologie influence-t-elle la perception du 'Moi' ?",
+                realData: "Psycho : L'anthropomorphisme crée une charge symbolique lourde pour le receveur."
+            },
+            {
+                actor: "Mvt 'Pureté Humaine'",
+                icon: "🚫",
+                cat: "Opinion Publique",
+                text: "Des émeutiers bloquent les hôpitaux, refusant l'hybridation de l'espèce humaine.",
+                left: "Force de l'ordre",
+                right: "Dialogue citoyen",
+                statsL: {sante: 10, budget: -10, ethique: -10, opinion: -30},
+                statsR: {sante: -10, budget: -10, ethique: 10, opinion: 20},
+                stsContext: "La démocratie technique : Peut-on imposer une innovation médicale contre l'avis d'une partie de la population ?",
+                realData: "Sondages : 30-40% d'opposition du public par peur de la modification de la nature humaine."
+            },
+            {
+                actor: "Pays du Sud",
+                icon: "🌍",
+                cat: "Géopolitique",
+                text: "Vous brevetez le vivant. Nous demandons l'accès à la technologie sans payer de royalties exorbitantes.",
+                left: "Protéger brevets",
+                right: "Licence libre",
+                statsL: {sante: 0, budget: 20, ethique: -10, opinion: -10},
+                statsR: {sante: 0, budget: -20, ethique: 20, opinion: 10},
+                stsContext: "La justice globale : La santé est-elle un bien commun ou une marchandise brevetable ?",
+                realData: "Inégalités : Risque que la xénogreffe soit un luxe réservé aux pays riches."
+            }
+        ];
+
+        // --- MOTEUR DE JEU ---
+        let stats = { sante: 50, ethique: 50, budget: 50, opinion: 50 };
+        let currentIndex = 0;
+        let isGameOver = false;
+
+        function initGame() {
+            updateGauges();
+            loadCard();
+        }
+
+        function loadCard() {
+            if (currentIndex >= scenarios.length) {
+                finishGame("Mandat Terminé", "Vous avez navigué la controverse jusqu'au bout. Voici l'état de la société en 2050.");
+                return;
+            }
+
+            const s = scenarios[currentIndex];
+            const card = document.getElementById('game-card');
+            
+            // Remplissage
+            document.getElementById('c-icon').textContent = s.icon;
+            document.getElementById('c-actor').textContent = s.actor;
+            document.getElementById('c-cat').textContent = s.cat;
+            document.getElementById('c-text').textContent = s.text;
+            document.getElementById('btn-left').textContent = s.left;
+            document.getElementById('btn-right').textContent = s.right;
+            
+            // Reset position
+            card.style.transform = "translate(0, 0) rotate(0deg)";
+            card.style.opacity = "1";
+            document.getElementById('fb-accept').style.opacity = "0";
+            document.getElementById('fb-reject').style.opacity = "0";
+        }
+
+        function playerSwipe(choice) {
+            if(isGameOver) return;
+
+            const s = scenarios[currentIndex];
+            const effect = choice === 'left' ? s.statsL : s.statsR;
+            const card = document.getElementById('game-card');
+            
+            // Animation
+            const xDir = choice === 'left' ? -1 : 1;
+            card.style.transform = `translate(${xDir * 300}px, 50px) rotate(${xDir * 15}deg)`;
+            card.style.opacity = "0";
+
+            // Feedback
+            document.getElementById(choice === 'left' ? 'fb-reject' : 'fb-accept').style.opacity = "1";
+
+            // Stats update
+            updateStats(effect);
+            
+            setTimeout(() => {
+                currentIndex++;
+                if (!checkCriticalFailure()) {
+                    loadCard();
+                }
+            }, 300);
+        }
+
+        function updateStats(effect) {
+            stats.sante += effect.sante;
+            stats.ethique += effect.ethique;
+            stats.budget += effect.budget;
+            stats.opinion += effect.opinion;
+
+            // Clamp entre 0 et 100
+            for (let k in stats) stats[k] = Math.max(0, Math.min(100, stats[k]));
+            updateGauges();
+        }
+
+        function updateGauges() {
+            document.getElementById('bar-sante').style.width = stats.sante + '%';
+            document.getElementById('bar-ethique').style.width = stats.ethique + '%';
+            document.getElementById('bar-budget').style.width = stats.budget + '%';
+            document.getElementById('bar-opinion').style.width = stats.opinion + '%';
+        }
+
+        function checkCriticalFailure() {
+            if (stats.sante <= 0) return finishGame("Pandémie Mondiale", "La barrière des espèces a cédé. L'humanité est menacée par un virus porcin.");
+            if (stats.ethique <= 0) return finishGame("Monstruosité Morale", "Le monde condamne la France pour crimes contre la nature.");
+            if (stats.budget <= 0) return finishGame("Faillite Nationale", "Le système de santé s'est effondré sous le coût des biotechnologies.");
+            if (stats.opinion <= 0) return finishGame("Insurrection", "Les laboratoires sont en feu. Le peuple refuse l'hybridation.");
+            return false;
+        }
+
+        // --- TRANSITION VERS DASHBOARD ---
+
+        function finishGame(title, desc) {
+            isGameOver = true;
+            
+            // Masquer le jeu
+            document.getElementById('game-view').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('game-view').style.display = 'none';
+                document.body.style.overflow = 'auto'; // Réactiver le scroll
+                showDashboard(title, desc);
+            }, 500);
+            return true;
+        }
+
+        function showDashboard(title, desc) {
+            const dash = document.getElementById('dashboard-view');
+            dash.style.display = 'block';
+
+            // Remplir le bilan
+            document.getElementById('final-title').textContent = title;
+            document.getElementById('final-desc').textContent = desc;
+
+            // Générer la grille des cartes
+            const grid = document.getElementById('actors-grid');
+            grid.innerHTML = '';
+
+            scenarios.forEach((s) => {
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'actor-card';
+                cardDiv.innerHTML = `
+                    <div class="ac-header">
+                        <div class="ac-icon">${s.icon}</div>
+                        <div>
+                            <div class="ac-name">${s.actor}</div>
+                            <div class="ac-cat">${s.cat}</div>
+                        </div>
+                    </div>
+                    <div class="ac-body">"${s.text}"</div>
+                    <div class="ac-context">
+                        <span class="label-sts">Enjeu Sociologique</span>
+                        ${s.stsContext}
+                        <br><br>
+                        <span class="label-sts" style="color: #999;">Réalité</span>
+                        ${s.realData}
+                    </div>
+                `;
+                grid.appendChild(cardDiv);
+            });
+        }
+
+        // Lancement
+        initGame();
+
+    </script>
+</body>
+</html>
