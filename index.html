@@ -4,445 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XENO : L'Hybridation Vivante</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,400&family=Mulish:wght@400;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-paper: #f9f9f9;
-            --text-dark: #2c3e50;
-            
-            --pig-main: #e57373;
-            --pig-glow: rgba(229, 115, 115, 0.4);
-            
-            --human-main: #64b5f6;
-            --human-glow: rgba(100, 181, 246, 0.4);
-            
-            --friction-main: #fbc02d;
-            --friction-glow: rgba(251, 192, 45, 0.4);
-            
-            --glass-bg: rgba(255, 255, 255, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.8);
-            --glass-blur: blur(12px);
-            
-            --font-serif: 'Lora', serif;
-            --font-sans: 'Mulish', sans-serif;
-        }
-
-        * { box-sizing: border-box; }
-
-        body {
-            margin: 0; padding: 0;
-            background-color: var(--bg-paper);
-            color: var(--text-dark);
-            font-family: var(--font-sans);
-            width: 100vw; height: 100vh; overflow: hidden;
-            display: flex; flex-direction: column;
-        }
-
-        .grain {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-            pointer-events: none; z-index: 0;
-        }
-
-        /* --- HEADER --- */
-        .header {
-            position: absolute; top: 0; left: 0; width: 100%; height: 80px;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 50px; z-index: 50;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
-        }
-        .logo { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 600; color: #333; }
-        
-        /* BOUTON SIMULATION (Plus petit) */
-        .sim-link {
-            text-decoration: none; cursor: pointer;
-            display: flex; align-items: center; gap: 8px;
-            padding: 8px 18px; /* Réduit */
-            border-radius: 50px;
-            
-            background: rgba(255, 255, 255, 0.5);
-            border: 1px solid rgba(0,0,0,0.1);
-            backdrop-filter: blur(5px);
-            
-            font-family: var(--font-sans);
-            font-weight: 700;
-            font-size: 0.75rem; /* Réduit */
-            color: var(--text-dark);
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-        }
-        
-        .sim-link:hover {
-            background: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            border-color: var(--friction-main);
-        }
-        
-        .play-icon {
-            display: inline-block;
-            width: 0; height: 0; 
-            border-top: 4px solid transparent;
-            border-bottom: 4px solid transparent;
-            border-left: 7px solid var(--text-dark);
-            transition: 0.3s;
-        }
-        .sim-link:hover .play-icon { border-left-color: var(--friction-main); }
-
-        .legend { display: flex; gap: 20px; font-size: 0.8rem; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 1px; }
-        .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 8px; }
-
-        /* --- FIGURES CENTRALES --- */
-        .stage-layer {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; pointer-events: none;
-        }
-        .figure-container {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            width: 450px; height: 450px;
-            border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-        }
-        @keyframes breathe {
-            0% { transform: translateY(-50%) scale(1); opacity: 0.9; }
-            50% { transform: translateY(-50%) scale(1.05); opacity: 1; }
-            100% { transform: translateY(-50%) scale(1); opacity: 0.9; }
-        }
-        .fig-left { left: 5%; animation: breathe 6s ease-in-out infinite; }
-        .fig-right { right: 5%; animation: breathe 6s ease-in-out infinite 3s; }
-
-        .fig-img {
-            width: 100%; height: 100%; border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-            border: 8px solid rgba(255,255,255,0.5);
-        }
-        .fig-glow {
-            position: absolute; width: 120%; height: 120%; border-radius: 50%;
-            filter: blur(50px); opacity: 0.4; z-index: -1;
-        }
-        .glow-pig { background: var(--pig-main); }
-        .glow-human { background: var(--human-main); }
-        .fig-label {
-            position: absolute; bottom: -40px; font-family: var(--font-serif); 
-            font-size: 1.2rem; color: #aaa; letter-spacing: 2px;
-        }
-
-        /* --- LIENS (SVG) --- */
-        svg#connections {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 2; pointer-events: none;
-        }
-        .connector { fill: none; stroke-width: 2.5px; stroke-linecap: round; opacity: 0.6; }
-
-        /* --- CARTES --- */
-        .nodes-container {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 10; pointer-events: none;
-        }
-        .glass-card {
-            pointer-events: auto; cursor: pointer;
-            position: absolute; width: 280px; height: 100px;
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            display: flex; align-items: center; padding: 12px;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-        .glass-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            background: rgba(255,255,255,0.85);
-            z-index: 100;
-        }
-        .card-thumb {
-            width: 76px; height: 76px; border-radius: 12px;
-            object-fit: cover; margin-right: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .card-info { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
-        .card-cat {
-            font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;
-        }
-        .card-title { font-family: var(--font-serif); font-size: 1.1rem; line-height: 1.2; color: #222; margin: 0; }
-        .glass-pig .card-cat { color: var(--pig-main); }
-        .glass-pig:hover { box-shadow: 0 15px 40px var(--pig-glow); border-color: var(--pig-main); }
-        .glass-human .card-cat { color: var(--human-main); }
-        .glass-human:hover { box-shadow: 0 15px 40px var(--human-glow); border-color: var(--human-main); }
-        .glass-friction .card-cat { color: var(--friction-main); }
-        .glass-friction:hover { box-shadow: 0 15px 40px var(--friction-glow); border-color: var(--friction-main); }
-        .glass-friction { border-bottom: 3px solid var(--friction-main); }
-
-        /* --- SIDEBAR --- */
-        #sidebar {
-            position: fixed; right: 0; top: 0; width: 500px; height: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: -20px 0 60px rgba(0,0,0,0.05);
-            transform: translateX(100%); transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-            z-index: 100; display: flex; flex-direction: column;
-            border-left: 1px solid rgba(0,0,0,0.05);
-        }
-        #sidebar.active { transform: translateX(0); }
-        .sb-img { height: 260px; width: 100%; object-fit: cover; }
-        .sb-content { padding: 40px 50px; overflow-y: auto; color: #555; line-height: 1.8; }
-        .sb-cat-pill {
-            display: inline-block; background: #f0f0f0; padding: 6px 14px; border-radius: 30px;
-            font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #777;
-            margin-bottom: 25px;
-        }
-        .sb-title { font-family: var(--font-serif); font-size: 2.2rem; color: #222; margin: 0 0 20px 0; line-height: 1.1; }
-        .sb-box {
-            margin-top: 30px; background: #fdfdfd; padding: 25px; border-radius: 12px;
-            border: 1px solid #eee; box-shadow: 0 5px 20px rgba(0,0,0,0.02);
-        }
-        .sb-box h4 { margin: 0 0 10px 0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #999; }
-        .sb-box p { margin: 0; font-size: 1rem; color: #444; font-style: italic; }
-        .close-btn {
-            position: absolute; top: 20px; right: 20px;
-            width: 44px; height: 44px; border-radius: 50%; border: none; background: #fff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; font-size: 1.5rem; color: #333;
-            transition: 0.2s; z-index: 10;
-        }
-        .close-btn:hover { transform: scale(1.1); }
-
-        /* --- POPUP DE SIMULATION --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(44, 62, 80, 0.3); /* Fond sombre flou */
-            backdrop-filter: blur(8px);
-            z-index: 2000;
-            display: flex; justify-content: center; align-items: center;
-            opacity: 0; visibility: hidden;
-            transition: opacity 0.5s ease;
-        }
-
-        .modal-overlay.active { opacity: 1; visibility: visible; }
-
-        .modal-content {
-            width: 600px; max-width: 90%;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 50px;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-            border: 1px solid rgba(255,255,255,0.5);
-            transform: translateY(30px);
-            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .modal-overlay.active .modal-content { transform: translateY(0); }
-
-        .modal-year {
-            font-size: 0.9rem; font-weight: 800; letter-spacing: 4px; color: var(--friction-main);
-            text-transform: uppercase; margin-bottom: 10px; display: block;
-        }
-
-        .modal-title {
-            font-family: var(--font-serif); font-size: 2.5rem; color: #222; margin: 0 0 20px 0;
-        }
-
-        .modal-text {
-            font-size: 1.05rem; line-height: 1.8; color: #555; margin-bottom: 40px;
-        }
-
-        .start-btn {
-            display: inline-block; text-decoration: none;
-            background: var(--text-dark); color: #fff;
-            padding: 15px 40px; border-radius: 50px;
-            font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
-            transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(44, 62, 80, 0.2);
-        }
-
-        .start-btn:hover {
-            background: var(--friction-main); color: #fff;
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(251, 192, 45, 0.3);
-        }
-
-    </style>
+    <!-- Polices -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,400&family=Mulish:wght@400;700;800&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="grain"></div>
 
-    <div class="header">
-        <div class="logo">Xéno-Observatoire</div>
-        
-        <!-- BOUTON DÉCLENCHEUR DU POPUP -->
-        <a onclick="openIntro()" class="sim-link">
-            <span class="play-icon"></span>
-            Simulation
-        </a>
+    <header class="header">
+        <div class="logo">
+            <span class="logo-main">Xéno</span><span class="logo-sub">Observatoire</span>
+        </div>
+        <nav>
+             <a onclick="UI.openIntro()" class="sim-button">
+            <span class="sim-dot"></span>
+            <span class="sim-text">Simulation Live - Jouer</span>
+    </a>
 
+    <div class="legend">
+        </nav>
         <div class="legend">
-            <div><span class="dot" style="background:var(--pig-main)"></span>Source Animale</div>
-            <div><span class="dot" style="background:var(--human-main)"></span>Réception Humaine</div>
-            <div><span class="dot" style="background:var(--friction-main)"></span>Frictions</div>
+            <div><span class="dot" style="background:var(--pig-main)"></span>Source</div>
+            <div><span class="dot" style="background:var(--human-main)"></span>Cible</div>
+            <div><span class="dot" style="background:var(--friction-main)"></span>Bio-Industrie</div>
         </div>
-    </div>
+    </header>
 
-    <!-- POPUP INTRO -->
-    <div class="modal-overlay" id="intro-modal">
+    <!-- Modal d'introduction -->
+    <div class="modal-overlay" id="intro-simple-modal">
         <div class="modal-content">
-            <span class="modal-year">Paris — 2050</span>
-            <h2 class="modal-title">L'Ère de l'Hybridation</h2>
-            <p class="modal-text">
-                Bienvenue, Docteur ès sciences. Vous avez été nommé à la tête du <strong>Comité National pour la Santé Humaine et Animale </strong>.
-                <br><br>
-                La pénurie d'organes humains a poussé la France à légaliser les xénogreffes, mais la société est au bord de la rupture.
-                Vous allez devoir gérer cette crise. Vos décisions impacteront la <strong>Science</strong>, la <strong>Santé Publique</strong> et l'<strong>Acceptation Sociale</strong>.
-                <br><br>
-                L'avenir de l'humanité est entre vos mains.
-            </p>
-            <a href="xenogame.html" class="start-btn">Prendre mes fonctions</a>
-            <br><br>
-            <a style="cursor:pointer; font-size:0.8rem; color:#aaa; text-decoration:underline;" onclick="closeIntro()">Annuler</a>
+            <h2>Xéno-Observatoire</h2>
+            <p>Explorez les réseaux de controverses de la xénotransplantation. Cliquez sur les cartes pour analyser les enjeux scientifiques, sociaux et industriels.</p>
         </div>
     </div>
 
-    <!-- STAGE : Figures qui respirent -->
-    <div class="stage-layer">
+    <!-- Scène centrale -->
+    <main class="stage-layer">
         <div class="figure-container fig-left" id="anchor-pig">
             <div class="glow-pig fig-glow"></div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Picture_pig.jpg" class="fig-img" alt="Porc">
-            <div class="fig-label">LE DONNEUR</div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Picture_pig.jpg?auto=format&fit=crop&w=800&q=80" class="fig-img" alt="Le Donneur">
+            <svg class="curved-text-svg" viewBox="0 0 500 500">
+                <path id="curve-pig" d="M 50,250 a 200,200 0 0,0 400,0" fill="transparent" />
+                <text class="curved-text"><textPath href="#curve-pig" startOffset="50%" text-anchor="middle">LE DONNEUR</textPath></text>
+            </svg>
         </div>
 
         <div class="figure-container fig-right" id="anchor-human">
             <div class="glow-human fig-glow"></div>
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" class="fig-img" alt="Humain">
-            <div class="fig-label">LE RECEVEUR</div>
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" class="fig-img" alt="Le Receveur">
+            <svg class="curved-text-svg" viewBox="0 0 500 500">
+                <path id="curve-human" d="M 50,250 a 200,200 0 0,0 400,0" fill="transparent" />
+                <text class="curved-text"><textPath href="#curve-human" startOffset="50%" text-anchor="middle">LE RECEVEUR</textPath></text>
+            </svg>
         </div>
-    </div>
+    </main>
 
+    <!-- Connecteurs et Cartes -->
     <svg id="connections"></svg>
     <div class="nodes-container" id="nodes-container"></div>
 
-    <div id="sidebar">
-        <button class="close-btn" onclick="closeSidebar()">✕</button>
-        <img id="sb-img" class="sb-img" src="">
-        <div class="sb-content">
-            <span id="sb-cat" class="sb-cat-pill">Catégorie</span>
-            <h2 id="sb-title" class="sb-title">Titre</h2>
-            <p id="sb-desc">Description</p>
-            <div class="sb-box" id="sb-box">
-                <h4>Analyse Sociologique</h4>
-                <p id="sb-sts">...</p>
+    <!-- Panneau latéral -->
+    <aside id="sidebar">
+        <button class="close-btn" onclick="UI.closeSidebar()">✕</button>
+        <img id="sb-img" class="sb-img" src="" alt="">
+        <div class="sb-content" id="sb-dynamic-content"></div>
+    </aside>
+
+   <!-- POPUP NARRATIVE (Simulation) -->
+    <div class="modal-overlay" id="intro-modal">
+        <div class="modal-content narrative-box">
+            <div class="modal-header-deco">
+                <span class="modal-year">Paris — 2050</span>
+                <div class="status-badge">Confidentiel</div>
             </div>
-            <div style="margin-top:30px; padding-top:20px; border-top:1px solid #eee; font-size:0.9rem; color:#888;">
-                <strong>Réalité scientifique :</strong> <span id="sb-real">...</span>
+            
+            <h2 class="modal-title">L'Ère de l'Hybridation</h2>
+            
+            <div class="modal-body">
+                <p class="modal-text">
+                    Bienvenue, Docteur ès sciences. Vous avez été nommé à la tête du <strong>Comité National pour la Santé Humaine et Animale</strong>.
+                    <br><br>
+                    La pénurie d'organes humains a poussé la France à légaliser les xénogreffes, mais la société est au bord de la rupture.
+                    <br><br>
+                    Vous allez devoir gérer cette crise. Vos décisions impacteront la <strong>Science</strong>, la <strong>Santé Publique</strong> et l'<strong>Acceptation Sociale</strong>.
+                    <br><br>
+                    L'avenir de l'humanité est entre vos mains.
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <a href="xenogame.html" class="start-btn">Prendre mes fonctions</a>
+                <button class="cancel-link" onclick="UI.closeIntro()">Annuler l'accès</button>
             </div>
         </div>
     </div>
 
-    <script>
-        // --- LOGIQUE DU POPUP ---
-        function openIntro() {
-            document.getElementById('intro-modal').classList.add('active');
-        }
-        function closeIntro() {
-            document.getElementById('intro-modal').classList.remove('active');
-        }
+    
 
-        // --- DONNEES ET VISUALISATION ---
-        const data = [
-            { id: 'p1', side: 'pig', cat: 'Biotechnologie', title: 'ADN Réécrit', img: 'https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=300&q=80', y: 20, desc: "On efface l'identité biologique du porc pour y inscrire une compatibilité humaine.", real: "69 gènes modifiés par CRISPR.", sts: "L'animal-machine : un artefact technique." },
-            { id: 'p2', side: 'pig', cat: 'Condition Animale', title: 'Vie Stérile', img: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=300&q=80', y: 50, desc: "Élevés dans des bulles sans contact avec la nature, réduits à des usines à organes.", real: "Élevage DPF (Pathogen Free).", sts: "Réification du vivant sensible." },
-            { id: 'p3', side: 'pig', cat: 'Risque', title: 'Virus Cachés', img: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Rotavirus_Reconstruction.jpg?auto=format&fit=crop&w=300&q=80', y: 80, desc: "Le danger de réveiller des virus porcins endormis et de créer une pandémie.", real: "Rétrovirus PERV.", sts: "Sécurité collective vs Survie individuelle." },
-            { id: 'h1', side: 'human', cat: 'Identité', title: 'Le Corps Intrus', img: 'https://www.chem.gla.ac.uk/~alanc/mken.jpg?auto=format&fit=crop&w=300&q=80', y: 25, desc: "Le trouble psychologique de vivre avec le cœur d'une bête.", real: "Troubles post-greffe.", sts: "La frontière Humain/Animal s'effondre." },
-            { id: 'h2', side: 'human', cat: 'Culture', title: 'Le Tabou', img: 'https://images.unsplash.com/photo-1628348070889-cb656235b4eb?auto=format&fit=crop&w=300&q=80', y: 55, desc: "L'animal impur pour des milliards de croyants. La science heurte le sacré.", real: "Débats Halal/Casher.", sts: "Conflit Rationalité vs Croyance." },
-            { id: 'h3', side: 'human', cat: 'Société', title: 'Inégalités', img: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=300&q=80', y: 85, desc: "Une technologie de luxe. Créera-t-on une humanité à deux vitesses ?", real: "Coût > 500k$.", sts: "Biopolitique de classe." },
-            { id: 'f1', side: 'friction', cat: 'Droit', title: 'Vide Juridique', img: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=300&q=80', y: 40, desc: "La chimère est-elle une personne ou une chose brevetée ?", real: "Brevets sur le vivant.", sts: "Ontologie juridique obsolète." },
-            { id: 'f2', side: 'friction', cat: 'Marché', title: 'Bio-Capital', img: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=300&q=80', y: 65, desc: "Le corps devient une marchandise industrielle.", real: "Startups en bourse.", sts: "Le marché s'étend à la chair." }
-        ];
+    <!-- Scripts (L'ordre est important) -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
 
-        function init() {
-            renderCards();
-            setTimeout(drawConnections, 100);
-            window.addEventListener('resize', drawConnections);
-        }
-
-        function renderCards() {
-            const container = document.getElementById('nodes-container');
-            const leftX = 15, rightX = 85, centerX = 50;
-
-            data.forEach(d => {
-                const el = document.createElement('div');
-                let theme = d.side === 'pig' ? 'glass-pig' : (d.side === 'human' ? 'glass-human' : 'glass-friction');
-                let xPos = d.side === 'pig' ? leftX : (d.side === 'human' ? rightX : centerX);
-                
-                el.className = `glass-card ${theme}`;
-                el.id = `card-${d.id}`;
-                el.style.left = `calc(${xPos}% - 140px)`;
-                el.style.top = `${d.y}%`;
-                el.style.animation = `float 4s ease-in-out infinite ${Math.random()}s`;
-
-                el.innerHTML = `
-                    <img src="${d.img}" class="card-thumb" alt="${d.title}">
-                    <div class="card-info"><span class="card-cat">${d.cat}</span><h3 class="card-title">${d.title}</h3></div>
-                `;
-                el.onclick = () => openSidebar(d);
-                container.appendChild(el);
-            });
-            const style = document.createElement('style');
-            style.innerHTML = `@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }`;
-            document.head.appendChild(style);
-        }
-
-        function drawConnections() {
-            const svg = document.getElementById('connections');
-            svg.innerHTML = '';
-            const pEl = document.getElementById('anchor-pig').getBoundingClientRect();
-            const hEl = document.getElementById('anchor-human').getBoundingClientRect();
-            const pX = pEl.left + pEl.width/2, pY = pEl.top + pEl.height/2;
-            const hX = hEl.left + hEl.width/2, hY = hEl.top + hEl.height/2;
-
-            data.forEach(d => {
-                const card = document.getElementById(`card-${d.id}`).getBoundingClientRect();
-                const cardY = card.top + card.height/2;
-                let color = d.side === 'pig' ? "var(--pig-main)" : (d.side === 'human' ? "var(--human-main)" : "var(--friction-main)");
-
-                if(d.side === 'pig') createLine(svg, pX, pY, card.right, cardY, color);
-                else if(d.side === 'human') createLine(svg, hX, hY, card.left, cardY, color);
-                else {
-                    createLine(svg, pX, pY, card.left, cardY, "var(--pig-main)");
-                    createLine(svg, hX, hY, card.right, cardY, "var(--human-main)");
-                }
-            });
-        }
-
-        function createLine(svg, x1, y1, x2, y2, color) {
-            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path.setAttribute("d", `M ${x1},${y1} C ${(x1+x2)/2},${y1} ${(x1+x2)/2},${y2} ${x2},${y2}`);
-            path.setAttribute("class", "connector");
-            path.setAttribute("stroke", color);
-            svg.appendChild(path);
-        }
-
-        function openSidebar(d) {
-            const sb = document.getElementById('sidebar');
-            document.getElementById('sb-img').src = d.img;
-            document.getElementById('sb-cat').innerText = d.cat;
-            document.getElementById('sb-title').innerText = d.title;
-            document.getElementById('sb-desc').innerText = d.desc;
-            document.getElementById('sb-real').innerText = d.real;
-            document.getElementById('sb-sts').innerText = d.sts;
-            const box = document.getElementById('sb-box');
-            box.style.borderLeft = `4px solid var(--${d.side === 'pig' ? 'pig' : (d.side === 'human' ? 'human' : 'friction')}-main)`;
-            sb.classList.add('active');
-        }
-
-        function closeSidebar() { document.getElementById('sidebar').classList.remove('active'); }
-
-        init();
-    </script>
+    
 </body>
 </html>
