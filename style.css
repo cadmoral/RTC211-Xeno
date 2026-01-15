@@ -1,0 +1,624 @@
+:root {
+    --bg-paper: #f9f9f9;
+    --text-dark: #2c3e50;
+    --pig-main: #e57373;
+    --human-main: #64b5f6;
+    --friction-main: #fbc02d;
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.9);
+    --glass-blur: blur(12px);
+    --font-serif: 'Lora', serif;
+    --font-sans: 'Mulish', sans-serif;
+}
+
+/* Correction du Reset */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-paper); /* S'assure que tout l'écran a la même couleur */
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--text-dark);
+    overflow: hidden; /* Empêche le scroll sur bureau */
+    display: flex;
+    flex-direction: column;
+}
+
+/* S'assure que le grain couvre absolument tout dès le pixel 0 */
+.grain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+}
+
+* { 
+    box-sizing: border-box; /* Crucial pour que 100% de largeur inclue le padding */
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Occupe toute la largeur */
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4%; /* Utilisation de % plutôt que px pour plus de flexibilité */
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+}
+
+/* On réduit légèrement la taille de la légende pour qu'elle respire */
+.legend {
+    display: flex;
+    gap: 15px;
+    font-size: 0.75rem; /* Taille de police optimisée */
+    font-weight: 800;
+    text-transform: uppercase;
+    flex-wrap: nowrap; /* Empêche le retour à la ligne sur bureau */
+    align-items: center;
+}
+
+.legend div {
+    display: flex;
+    align-items: center;
+    white-space: nowrap; /* Empêche "Bio-Industrie" de se couper en deux */
+}
+
+logo {
+    display: flex;
+    align-items: center;
+    cursor: default;
+    user-select: none;
+}
+
+.logo-main {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 800; /* Très gras */
+    color: var(--text-dark);
+    letter-spacing: -1px; /* Lettres serrées pour le premier mot */
+    position: relative;
+}
+
+/* Le petit point de détail "biologique" sur le X */
+.logo-main::first-letter {
+    color: var(--pig-main); /* Rappel discret de la source porcine */
+}
+
+.logo-sub {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 400; /* Très léger */
+    text-transform: uppercase;
+    letter-spacing: 5px; /* Très espacé pour le contraste */
+    margin-left: 12px;
+    padding-left: 12px;
+    border-left: 1px solid rgba(0,0,0,0.1); /* Fine ligne de séparation */
+    color: #7f8c8d;
+    display: inline-block;
+    padding-top: 4px;
+}
+
+/* Effet au survol du titre global */
+.logo:hover .logo-main {
+    color: #000;
+}
+
+.logo:hover .logo-sub {
+    color: var(--human-main); /* Transition vers le bleu cible */
+    border-left-color: var(--human-main);
+    transition: all 0.4s ease;
+}
+
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+
+.sim-link {
+    /* ... vos styles ... */
+    margin: 0 10px;
+    flex-shrink: 0; /* Empêche le bouton de s'écraser */
+}
+.sim-button {
+    text-decoration: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 4px; /* Forme plus carrée/médicale */
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    position: relative;
+    overflow: hidden;
+}
+
+.sim-text {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-size: 0.7rem;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+/* Le petit point "Live" */
+.sim-dot {
+    width: 6px;
+    height: 6px;
+    background-color:#E60000 ;    
+    border-radius: 50%;
+    position: relative;
+}
+
+/* Animation de pulsation du point */
+.sim-dot::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: var(--friction-main);
+    border-radius: 50%;
+    animation: sim-pulse 2s infinite;
+}
+
+@keyframes sim-pulse {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(3.5); opacity: 0; }
+}
+
+/* Hover : l'esthétique s'affine */
+.sim-button:hover {
+    background: #ffffff;
+    border-color: var(--friction-main);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+.sim-button:active {
+    transform: translateY(0);
+}
+
+/* SCÈNE CENTRALE */
+.stage-layer { position: absolute; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+.figure-container { position: absolute; top: 50%; transform: translateY(-50%); width: 35vw; height: 35vw; max-width: 450px; max-height: 450px; border-radius: 50%; }
+.fig-left { left: 5%; animation: breathe 8s ease-in-out infinite; }
+.fig-right { right: 5%; animation: breathe 8s ease-in-out infinite 4s; }
+
+@keyframes breathe {
+    0%, 100% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-50%) scale(1.05); }
+}
+
+.fig-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 6px solid #fff; box-shadow: 0 20px 40px rgba(0,0,0,0.1); position: relative; z-index: 2; }
+.fig-glow { position: absolute; width: 110%; height: 110%; top: -5%; left: -5%; border-radius: 50%; filter: blur(40px); opacity: 0.3; z-index: 0; }
+.glow-pig { background: var(--pig-main); }
+.glow-human { background: var(--human-main); }
+
+/* SVG TEXTE */
+.curved-text-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; overflow: visible; }
+.curved-text { fill: #fff; font-family: var(--font-serif); font-size: 20px; font-weight: 700; text-transform: uppercase; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+
+/* CARTES ET CONNECTEURS */
+/* --- CONNECTEURS SVG --- */
+#connections {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Important pour cliquer sur les cartes dessous */
+    z-index: 5; /* Entre les figures (z:1) et les cartes (z:10) */
+    display: block;
+}
+
+.connector {
+    fill: none;
+    stroke-width: 4px; /* Augmenté de 2px à 4px (ajustez à 5px ou 6px si besoin) */
+    stroke-linecap: round;
+    opacity: 0.5;      /* Augmenté de 0.4 à 0.5 pour plus de présence */
+    transition: all 0.3s ease;
+}
+
+/* Animation optionnelle quand on survole une carte (nécessite un peu de JS pour cibler la ligne, 
+   mais voici la base CSS si vous voulez jouer avec l'opacité globale au survol) */
+.connector:hover {
+    opacity: 0.8;
+    stroke-width: 6px;
+}
+
+/* On s'assure que les cartes sont bien au-dessus */
+.nodes-container {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* --- FORMAT UNIQUE DES CARTES --- */
+.glass-card {
+    pointer-events: auto;
+    cursor: pointer;
+    position: absolute;
+    width: 280px;
+    height: 100px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    
+    /* Format "Friction" appliqué à tout le monde : bordure colorée en bas */
+    border-bottom: 4px solid transparent; 
+}
+
+.glass-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    background: rgba(255,255,255,0.85);
+    z-index: 100;
+}
+
+/* --- COULEURS SPÉCIFIQUES --- */
+/* Source (Porc) */
+.glass-pig { border-bottom-color: var(--pig-main); }
+.glass-pig .card-cat { color: var(--pig-main); }
+
+/* Cible (Humain) */
+.glass-human { border-bottom-color: var(--human-main); }
+.glass-human .card-cat { color: var(--human-main); }
+
+/* Bio-Industrie (Milieu) */
+.glass-friction { border-bottom-color: var(--friction-main); }
+.glass-friction .card-cat { color: var(--friction-main); }
+
+/* Typographie interne */
+.card-thumb { width: 76px; height: 76px; border-radius: 12px; object-fit: cover; margin-right: 15px; }
+.card-info { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+.card-cat { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+.card-title { font-family: var(--font-serif); font-size: 1.1rem; line-height: 1.2; color: #222; margin: 0; }
+.glass-card:hover { transform: translateY(-5px); background: #fff; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+.card-thumb { width: 70px; height: 70px; border-radius: 10px; object-fit: cover; margin-right: 12px; }
+.card-title { font-family: var(--font-serif); font-size: 1rem; margin: 0; line-height: 1.2; }
+.card-cat { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px; }
+
+/* TYPES DE CARTES */
+.glass-pig .card-cat { color: var(--pig-main); }
+.glass-human .card-cat { color: var(--human-main); }
+.glass-friction .card-cat { color: var(--friction-main); }
+.glass-friction { border-bottom: 3px solid var(--friction-main); }
+
+/* SIDEBAR */
+/* --- MODIFICATION DE LA SIDEBAR --- */
+#sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 500px; /* Largeur initiale */
+    height: 100%;
+    background: #fff;
+    z-index: 2000;
+    transform: translateX(100%);
+    /* Ajout de 'width' dans la transition pour un effet fluide */
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+    overflow-y: auto;
+}
+
+/* Nouvel état élargi */
+#sidebar.expanded {
+    width: 800px; /* S'ouvre davantage vers la gauche */
+}
+
+
+#sidebar.active { transform: translateX(0); }
+.close-btn { position: sticky; top: 20px; left: 85%; width: 40px; height: 40px; border-radius: 50%; border: none; background: #eee; cursor: pointer; font-weight: bold; }
+.sb-img { width: 100%; height: 300px; object-fit: cover; }
+.sb-content { padding: 30px; }
+.sb-title { font-family: var(--font-serif); font-size: 2rem; margin-top: 10px; }
+.sb-desc { line-height: 1.6; color: #444; font-size: 1.05rem; }
+.sb-box { background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 20px; border-left: 4px solid #ddd; }
+
+/* MODAL INTRO */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px; }
+.modal-overlay.active { display: flex; }
+.modal-content { background: #fff; padding: 40px; border-radius: 20px; max-width: 500px; text-align: center; }
+
+/* =========================================
+   MEDIA QUERY : SMARTPHONES ET TABLETTES
+   ========================================= */
+@media (max-width: 900px) {
+    body { overflow-y: auto; height: auto; }
+    
+    .header { flex-direction: column; padding: 20px; text-align: center; gap: 15px; height: auto; }
+    .legend { flex-wrap: wrap; justify-content: center; }
+
+    /* On fige les images de fond pour ne pas gêner le scroll */
+    .stage-layer { position: fixed; height: 100vh; opacity: 0.15; pointer-events: none; }
+    .figure-container { width: 60vw; height: 60vw; }
+    .fig-left { left: -20%; }
+    .fig-right { right: -20%; }
+    .curved-text-svg, #connections { display: none; } /* On cache les éléments complexes */
+
+    /* Les cartes s'empilent verticalement */
+    .nodes-container { 
+        position: relative; inset: auto; 
+        display: flex; flex-direction: column; align-items: center; 
+        padding: 40px 15px; gap: 20px; 
+    }
+    
+    .glass-card { 
+        position: relative !important; /* Force l'empilement */
+        left: auto !important; top: auto !important;
+        width: 100%; max-width: 450px;
+        height: auto; min-height: 100px;
+        transform: none !important;
+    }
+
+    /* La sidebar prend tout l'écran */
+    #sidebar { width: 100%; }
+    .sb-content { padding: 20px; }
+    .sb-title { font-size: 1.6rem; }
+}
+
+
+
+
+/* Styles spécifiques Pharma et Sidebar */
+.pharma-section { margin-top: 35px; border-top: 1px solid #eee; padding-top: 25px; }
+.pharma-section h3 { font-family: var(--font-serif); font-size: 1.4rem; color: #333; margin-bottom: 12px; }
+.pharma-section p { margin-bottom: 15px; font-size: 0.95rem; color: #666; font-style: italic; }
+
+.page-link-btn {
+    display: inline-block; padding: 10px 20px;
+    background: #fff; border: 1px solid var(--friction-main);
+    color: var(--friction-main); text-decoration: none; font-weight: 800; border-radius: 50px;
+    cursor: pointer; transition: 0.3s; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;
+}
+.page-link-btn:hover { background: var(--friction-main); color: #fff; transform: translateY(-2px); }
+
+.back-btn { 
+    display: inline-block; margin-bottom: 25px; color: var(--friction-main); 
+    cursor: pointer; font-weight: 800; text-transform: uppercase; 
+    font-size: 0.8rem; letter-spacing: 1px; 
+}
+.back-btn:hover { text-decoration: underline; }
+
+/* Style pour l'introduction de la section Pharma */
+.pharma-intro-header {
+    border-bottom: 2px solid var(--friction-main);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-dark);
+}
+
+.pharma-section {
+    margin-bottom: 40px; /* Plus d'espace entre les sections */
+}
+
+.pharma-section h3 {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    color: #222;
+    margin-bottom: 15px;
+}
+
+.pharma-section p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #555;
+    margin-bottom: 15px;
+    font-style: normal; /* On retire l'italique pour les longs textes introductifs */
+}
+
+/* On garde les boutons bien visibles */
+.page-link-btn {
+    margin-top: 10px;
+}
+
+/* --- ESPACEMENT SIDEBAR : ANALYSE ET RÉALITÉ --- */
+
+.sb-box {
+    margin-top: 40px; /* Espace avant le bloc Analyse STS */
+    background: #fdfdfd;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    border-left: 4px solid #ddd; /* On lui donne un aspect "bloc de réflexion" */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+}
+
+.sb-real-box {
+    margin-top: 50px; /* C'est ici qu'on augmente l'espace entre STS et Réalité */
+    padding-top: 30px;
+    border-top: 1px solid #eee; /* La ligne de séparation devient plus nette */
+    font-size: 0.9rem;
+    color: #777;
+    line-height: 1.5;
+}
+
+/* On stylise aussi le label "Réalité" pour qu'il respire */
+.sb-real-box strong {
+    display: block; /* On met le mot "Réalité :" sur sa propre ligne */
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: #999;
+}
+
+.biblio-container {
+    margin-top: 50px;
+    border-top: 1px solid #eee;
+    padding-top: 25px;
+}
+
+.biblio-nav-link {
+    display: inline-block;
+    color: #e57373; /* Couleur de rappel Source/Bioéthique */
+    text-decoration: none;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.biblio-nav-link .arrow {
+    margin-left: 8px;
+    transition: transform 0.3s;
+    display: inline-block;
+}
+
+.biblio-nav-link:hover {
+    color: var(--text-dark);
+}
+
+.biblio-nav-link:hover .arrow {
+    transform: translateX(5px);
+}
+
+/* --- MODAL NARRATIVE 2050 --- */
+/* --- STYLE DE LA POPUP NARRATIVE --- */
+.narrative-box {
+    background: #ffffff;
+    padding: 50px;
+    border-radius: 4px; /* Look dossier papier */
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+    border: 1px solid rgba(0,0,0,0.05);
+    text-align: left; /* Alignement à gauche pour le sérieux */
+}
+
+.modal-header-deco {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.modal-year {
+    font-weight: 800;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--friction-main);
+}
+
+.status-badge {
+    font-size: 0.6rem;
+    padding: 4px 10px;
+    border: 1px solid #ddd;
+    text-transform: uppercase;
+    color: #999;
+}
+
+.modal-title {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    color: var(--text-dark);
+}
+
+.modal-text {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #444;
+}
+
+.modal-footer {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.start-btn {
+    display: inline-block;
+    padding: 18px 40px;
+    background: var(--text-dark);
+    color: white !important;
+    text-decoration: none;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.start-btn:hover {
+    background: #000;
+    transform: translateY(-3px);
+}
+
+.cancel-link {
+    display: block;
+    margin-top: 20px;
+    background: none;
+    border: none;
+    color: #aaa;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+@media (max-width: 900px) {
+    .header {
+        position: relative; /* Reprend sa place dans le flux pour pouvoir scroller */
+        height: auto;
+        padding: 15px;
+        flex-direction: column; /* Empile le logo et la légende */
+        gap: 10px;
+        width: 100%;
+        background: rgba(255,255,255,0.95);
+    }
+    .sim-button {
+        order: -1; /* Place le bouton en haut sur mobile */
+        margin-bottom: 5px;
+    }
+    .logo-main { font-size: 1.4rem; }
+    .logo-sub { font-size: 0.6rem; letter-spacing: 3px; margin-left: 8px; padding-left: 8px; }
+    .legend {
+        justify-content: center;
+        flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si l'écran est très étroit */
+        gap: 10px 15px; /* Espace vertical et horizontal */
+        width: 100%;
+    }
+     #sidebar, #sidebar.expanded {
+        width: 100%;
+    }
+    narrative-box { padding: 30px 20px; }
+    .modal-title { font-size: 1.6rem; }
+}
+/* Sur mobile, on garde 100% dans tous les cas */
