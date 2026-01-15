@@ -619,13 +619,23 @@ logo {
         width: 100%;
     }
 
-    .narrative-box {
-        padding: 30px 20px; /* Moins d'espace sur les côtés */
-        width: 95%; /* Prend presque toute la largeur */
-        max-height: 90vh; /* Empêche la popup de dépasser de l'écran en hauteur */
-        overflow-y: auto; /* Permet de scroller à l'intérieur de la popup si le texte est long */
+    /* 1. L'overlay doit permettre le défilement si la modal est trop grande */
+    .modal-overlay {
+        align-items: flex-start; /* Aligne au haut pour permettre le scroll naturel */
+        padding: 20px 10px;
+        overflow-y: auto; /* Autorise le scroll sur l'écran complet */
         display: flex;
-        flex-direction: column;
+    }
+
+    /* 2. La boîte narrative */
+    .narrative-box {
+        margin: auto; /* Centre la box si elle est petite, sinon permet le scroll */
+        width: 100%;
+        max-width: 100%;
+        padding: 25px 20px;
+        height: auto; /* Laisse la box s'adapter au contenu */
+        max-height: none; /* On enlève la limite de hauteur pour laisser défiler */
+        display: block; /* Retour au flux normal pour le scroll */
     }
 
     /* Titre plus petit pour mobile */
@@ -652,17 +662,17 @@ logo {
         letter-spacing: 1.5px; /* On réduit l'espacement des lettres */
     }
 
-    /* Bouton d'action */
-    .start-btn {
-        width: 100%; /* Le bouton prend toute la largeur pour être cliqué plus facilement */
-        padding: 15px 20px;
-        font-size: 0.75rem;
-        text-align: center;
-    }
-
+     /* 3. Assurer que le footer et le bouton soient bien visibles */
     .modal-footer {
         margin-top: 30px;
+        padding-bottom: 20px; /* Espace de sécurité en bas */
+    }
+
+    .start-btn {
         width: 100%;
+        display: block;
+        text-align: center;
+        box-sizing: border-box;
     }
 }
 
