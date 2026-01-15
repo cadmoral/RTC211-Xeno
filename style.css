@@ -618,7 +618,58 @@ logo {
      #sidebar, #sidebar.expanded {
         width: 100%;
     }
-    narrative-box { padding: 30px 20px; }
-    .modal-title { font-size: 1.6rem; }
+
+    .narrative-box {
+        padding: 30px 20px; /* Moins d'espace sur les côtés */
+        width: 95%; /* Prend presque toute la largeur */
+        max-height: 90vh; /* Empêche la popup de dépasser de l'écran en hauteur */
+        overflow-y: auto; /* Permet de scroller à l'intérieur de la popup si le texte est long */
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Titre plus petit pour mobile */
+    .modal-title {
+        font-size: 1.5rem; /* Réduction de 2.2rem à 1.5rem */
+        margin-bottom: 15px;
+        line-height: 1.2;
+    }
+
+    /* Texte plus compact */
+    .modal-text {
+        font-size: 0.95rem; /* Un peu plus petit pour éviter de trop scroller */
+        line-height: 1.6;
+    }
+
+    /* Header de la modal (Paris 2050 / Confidentiel) */
+    .modal-header-deco {
+        margin-bottom: 20px;
+        flex-direction: row; /* On garde l'alignement horizontal */
+        font-size: 0.7rem;
+    }
+
+    .modal-year {
+        letter-spacing: 1.5px; /* On réduit l'espacement des lettres */
+    }
+
+    /* Bouton d'action */
+    .start-btn {
+        width: 100%; /* Le bouton prend toute la largeur pour être cliqué plus facilement */
+        padding: 15px 20px;
+        font-size: 0.75rem;
+        text-align: center;
+    }
+
+    .modal-footer {
+        margin-top: 30px;
+        width: 100%;
+    }
+}
+
+/* Fix pour les très petits écrans (iPhone SE, etc.) */
+@media (max-height: 600px) {
+    .modal-title { font-size: 1.3rem; }
+    .modal-header-deco { margin-bottom: 10px; }
+    .narrative-box { padding: 20px; }
 }
 /* Sur mobile, on garde 100% dans tous les cas */
