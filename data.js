@@ -25,7 +25,7 @@ const XENO_DATA = [
  // --- CÔTÉ RECEVEUR (HUMAIN) : 4 NOEUDS ---
     { 
         id: 'h1', side: 'human', cat: 'Asso. Patients', title: 'Le Corps Hybride', 
-        img: 'https://images.unsplash.com/photo-1551884170-09fb70a3a2ff?auto=format&fit=crop&w=600&q=80', 
+        img: 'https://upload.wikimedia.org/wikipedia/commons/d/dd/BloodPressure2.jpg?auto=format&fit=crop&w=600&q=80', 
         y: 15, // Aligné HAUT
         desc: "L'expérience intime de vivre avec l'organe d'une autre espèce.", 
         sts: "La frontière biologique du 'Soi' s'effondre." 
