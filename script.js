@@ -1,10 +1,21 @@
 const UI = {
     init() {
+        // 1. On affiche les bulles (nœuds)
         this.renderCards();
-        // On attend que le layout soit stabilisé pour dessiner les lignes
+        
+        // 2. On attend que toute la page soit chargée (images, polices...)
         window.onload = () => {
+            // Dessine les lignes après un court instant pour être sûr des positions
             setTimeout(() => this.drawConnections(), 300);
+            
+            // --- C'EST ICI : OUVERTURE AUTO DE LA MODALE ---
+            setTimeout(() => {
+                // On ouvre la modale qui a l'ID 'modal-intro-auto'
+                this.openModal('modal-intro-auto');
+            }, 800); // Délai de 0.8 seconde pour une arrivée fluide
         };
+        
+        // 3. Si on redimensionne la fenêtre, on redessine les lignes
         window.addEventListener('resize', () => this.drawConnections());
     },
 
