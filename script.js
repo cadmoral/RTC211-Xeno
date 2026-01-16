@@ -101,36 +101,37 @@ const UI = {
             <div class="sb-box">
                 <h4 style="margin:0 0 10px 0; font-size:0.8rem; color:#999; text-transform:uppercase;">Analyse STS</h4>
                 <p style="margin:0; font-style:italic; font-size:0.95rem; color:#444;">${d.sts}</p>
-            </div>
-            <div class="sb-real-box"><strong>Réalité :</strong> ${d.real}</div>`;
+            </div>`;
         sb.classList.add('active');
     },
-    // Dans l'objet UI de script.js :
+   // Dans script.js, vérifiez bien cette fonction :
+
+// --- DANS SCRIPT.JS ---
+// Assurez-vous que la fonction commence bien par loadDetailSub(key, parentId)
 
 loadDetailSub(key, parentId) {
     const sub = PHARMA_SUBS[key];
     const sb = document.getElementById('sidebar');
-    
     sb.classList.add('expanded');
 
-    // Génération du lien de bibliographie
+    // C'EST CETTE LIGNE QUI ÉTAIT FAUSSE :
+    // On doit utiliser 'key' (ex: 'loi_fr') et PAS 'sub.biblio' (le texte)
     const biblioLinkHTML = sub.biblio ? `
-        <div class="biblio-container">
-            <a href="${sub.biblio}" target="_blank" class="biblio-nav-link">
-                Accéder aux références bibliographiques
-                <span class="arrow">→</span>
+        <div class="biblio-container" style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+            <a href="biblio.html?section=${key}" target="_blank" class="page-link-btn" style="background:#e57373; color:white; border:none; display:inline-block; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
+                Ouvrir la bibliographie
             </a>
         </div>
     ` : "";
 
     document.getElementById('sb-dynamic-content').innerHTML = `
         <div class="back-btn" onclick="UI.restoreParentMain('${parentId}')">← Retour au dossier</div>
-        <h2 class="sb-title" style="font-size:1.8rem;">${sub.title}</h2>
+        <h2 class="sb-title">${sub.title}</h2>
         <div class="sb-desc">${sub.content}</div>
         
-        <div class="sb-box" style="border-left: 4px solid var(--friction-main); background: #fffdf5;">
-            <h4 style="margin:0 0 10px 0; font-size:0.8rem; color:var(--friction-main); text-transform:uppercase;">Réalité Scientifique / Légale</h4>
-            <p style="margin:0; font-size:0.95rem; color:#444;">${sub.real}</p>
+        <div class="sb-box" style="border-left: 4px solid var(--friction-main); background: #fefefe; padding: 15px;">
+            <h4 style="margin:0; font-size:0.8rem; color:var(--friction-main); text-transform:uppercase;">Réalité</h4>
+            <p style="margin:10px 0 0 0; font-size:0.95rem;">${sub.real}</p>
         </div>
 
         ${biblioLinkHTML} 
@@ -158,14 +159,30 @@ restoreParentMain(parentId) {
             sb.classList.remove('expanded');
         }, 500); 
     },
-
+    
     openIntro() {
         const modal = document.getElementById('intro-modal');
         modal.classList.add('active');
     },
+
     closeIntro() {
         const modal = document.getElementById('intro-modal');
         modal.classList.remove('active');
+    },
+
+    // --- GESTION DES MODALES ---
+    openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.add('active');
+        }
+    },
+
+    closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.remove('active');
+        }
     }
 };
 

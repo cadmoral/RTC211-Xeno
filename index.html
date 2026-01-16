@@ -12,24 +12,167 @@
 <body>
 
     <div class="grain"></div>
-
     <header class="header">
-        <div class="logo">
-            <span class="logo-main">Xéno</span><span class="logo-sub">Observatoire</span>
+        <!-- LIGNE DU HAUT : TITRE ET LÉGENDE -->
+        <div class="header-top">
+            <div class="logo">
+                <span class="logo-main">Xéno</span><span class="logo-sub">Observatoire</span>
+            </div>
+            <div class="legend">
+                <div><span class="dot" style="background:var(--pig-main)"></span>Non Humain</div>
+                <div><span class="dot" style="background:var(--human-main)"></span>Humain</div>
+                <div><span class="dot" style="background:var(--friction-main)"></span>Frictions</div>
+            </div>
         </div>
-        <nav>
-             <a onclick="UI.openIntro()" class="sim-button">
-            <span class="sim-dot"></span>
-            <span class="sim-text">Simulation Live - Jouer</span>
-    </a>
 
-    <div class="legend">
+        <!-- LIGNE DU BAS : NAVIGATION (Tous les boutons ont le même style) -->
+        <nav class="header-nav">
+            <!-- Groupe Gauche -->
+            <button onclick="UI.openModal('modal-chrono')" class="sim-button nav-item">
+                <span class="icon">⏳</span> Chronologie
+            </button>
+            <button onclick="UI.openModal('modal-xtp')" class="sim-button nav-item">
+                <span class="icon">🧬</span> XTP
+            </button>
+
+            <!-- BOUTON CENTRAL (JEU) -->
+            <a onclick="UI.openIntro()" class="sim-button nav-item main-btn">
+                <span class="sim-dot"></span>
+                <span class="sim-text">Simulation Live</span>
+            </a>
+
+            <!-- Groupe Droite -->
+            <button onclick="UI.openModal('modal-prosp')" class="sim-button nav-item">
+                <span class="icon">🔭</span> Prospection
+            </button>
+            <button onclick="UI.openModal('modal-gloss')" class="sim-button nav-item">
+                <span class="icon">📖</span> Glossaire
+            </button>
         </nav>
-        <div class="legend">
-            <div><span class="dot" style="background:var(--pig-main)"></span>Source</div>
-            <div><span class="dot" style="background:var(--human-main)"></span>Cible</div>
-            <div><span class="dot" style="background:var(--friction-main)"></span>Bio-Industrie</div>
+    </header>
+
+    <!-- --- LES GRANDES MODALES (POP-UPS) --- -->
+    <!-- MODALE D'INTRODUCTION AUTOMATIQUE -->
+    <div class="modal-overlay large-modal" id="modal-intro-auto">
+        <div class="modal-content paper-style">
+            <!-- Bouton fermer -->
+            <button class="close-modal-btn" onclick="UI.closeModal('modal-intro-auto')">✕</button>
+            
+            <h2 class="modal-title-large">Bienvenue à l'Observatoire</h2>
+            
+            <div class="modal-body-scroll">
+                <p style="font-size: 1.2rem; font-family: var(--font-serif); color: var(--text-dark); margin-bottom: 20px;">
+                    <strong>Explorez les controverses de la xénotransplantation.</strong>
+                </p>
+                
+                <p>
+                    Nous sommes en 2026. La barrière entre l'homme et l'animal s'effondre. 
+                    Vous êtes ici pour analyser les réseaux complexes qui rendent possible la greffe d'organes porcins sur des humains.
+                </p>
+
+                <h3 style="margin-top:30px; font-size:0.9rem; text-transform:uppercase; letter-spacing:1px; color:#999;">Comment naviguer ?</h3>
+                
+                <ul class="timeline-list" style="margin-top:20px;">
+                    <li>
+                        <strong><span style="color:var(--pig-main)">●</span> Le Donneur (Gauche)</strong>
+                        Explorez la modification génétique et la condition animale.
+                    </li>
+                    <li>
+                        <strong><span style="color:var(--human-main)">●</span> Le Receveur (Droite)</strong>
+                        Analysez l'impact physiologique et social sur le patient.
+                    </li>
+                    <li>
+                        <strong><span style="color:var(--friction-main)">●</span> Les Frictions (Centre)</strong>
+                        Comprenez les enjeux éthiques, juridiques et économiques (Médiations).
+                    </li>
+                </ul>
+
+                <div style="margin-top: 40px; text-align: center;">
+                    <button onclick="UI.closeModal('modal-intro-auto')" class="sim-button" style="padding: 15px 30px; font-size: 0.9rem; margin: 0 auto;">
+                        Entrer dans l'Observatoire
+                    </button>
+                </div>
+            </div>
         </div>
+    </div>
+    <!-- 1. CHRONOLOGIE -->
+    <div class="modal-overlay large-modal" id="modal-chrono">
+        <div class="modal-content paper-style">
+            <button class="close-modal-btn" onclick="UI.closeModal('modal-chrono')">✕</button>
+            <h2 class="modal-title-large">Chronologie des Événements</h2>
+            <div class="modal-body-scroll">
+                <ul class="timeline-list">
+                    <li><strong>1963 :</strong> Première tentative rein chimpanzé → homme (Reemtsma).</li>
+                    <li><strong>1984 :</strong> L'affaire Baby Fae (Cœur de babouin).</li>
+                    <li><strong>2012 :</strong> Découverte de CRISPR-Cas9 (Édition génétique).</li>
+                    <li><strong>2022 :</strong> David Bennett reçoit le premier cœur de porc génétiquement modifié.</li>
+                    <li><strong>2025 :</strong> Premiers essais cliniques européens (Hypothèse).</li>
+                    <li><strong>2035 :</strong> Standardisation des fermes DPF...</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. XTP (Synthèse) -->
+    <div class="modal-overlay large-modal" id="modal-xtp">
+        <div class="modal-content paper-style">
+            <button class="close-modal-btn" onclick="UI.closeModal('modal-xtp')">✕</button>
+            <h2 class="modal-title-large">La Xénotransplantation (XTP)</h2>
+            <div class="modal-body-scroll">
+                <h3>Définition</h3>
+                <p>La transplantation d'organes, de tissus ou de cellules vivantes d'une espèce animale à une autre (ici, Porc vers Humain).</p>
+                <h3>Les 3 Verrous</h3>
+                <p>1. <strong>Immunologique :</strong> Le rejet hyperaigu (surmonté par CRISPR).</p>
+                <p>2. <strong>Physiologique :</strong> La taille et la fonction de l'organe.</p>
+                <p>3. <strong>Microbiologique :</strong> Le risque de zoonose (virus PERV).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. PROSPECTION -->
+    <div class="modal-overlay large-modal" id="modal-prosp">
+        <div class="modal-content paper-style">
+            <button class="close-modal-btn" onclick="UI.closeModal('modal-prosp')">✕</button>
+            <h2 class="modal-title-large">Scénarios Prospectifs</h2>
+            <div class="modal-body-scroll">
+                <p>Quels futurs pour l'humanité hybride ?</p>
+                <div class="prosp-card">
+                    <h4>Scénario A : La Banale Réparation</h4>
+                    <p>L'organe animal devient un consommable comme un autre. La pénurie disparaît.</p>
+                </div>
+                <div class="prosp-card">
+                    <h4>Scénario B : Le Rejet Sociétal</h4>
+                    <p>Scandales sanitaires et éthiques conduisent à l'interdiction mondiale. Retour à la dialyse.</p>
+                </div>
+                <div class="prosp-card">
+                    <h4>Scénario C : La Chimère Post-Humaine</h4>
+                    <p>L'hybridation va plus loin : augmentation des capacités humaines par le gène animal.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. GLOSSAIRE -->
+    <div class="modal-overlay large-modal" id="modal-gloss">
+        <div class="modal-content paper-style">
+            <button class="close-modal-btn" onclick="UI.closeModal('modal-gloss')">✕</button>
+            <h2 class="modal-title-large">Glossaire Technique</h2>
+            <div class="modal-body-scroll">
+                <dl class="glossary-list">
+                    <dt>Alpha-Gal</dt>
+                    <dd>Sucre présent chez le porc responsable du rejet immédiat chez l'humain.</dd>
+                    <dt>CRISPR-Cas9</dt>
+                    <dd>Ciseaux moléculaires permettant de couper/coller l'ADN.</dd>
+                    <dt>DPF (Designated Pathogen Free)</dt>
+                    <dd>Statut sanitaire d'animaux élevés sans aucun germe spécifique.</dd>
+                    <dt>Zoonose</dt>
+                    <dd>Maladie transmise de l'animal à l'homme.</dd>
+                    <dt>Chimérisme</dt>
+                    <dd>Coexistence de cellules de deux origines génétiques différentes dans un même organisme.</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
     </header>
 
     <!-- Modal d'introduction -->

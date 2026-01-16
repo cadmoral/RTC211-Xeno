@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dossier de Recherche | XENO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Mulish:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Couleurs du bureau et du papier */
+            --desk-color: #1a1a1a; /* Couleur du bureau (bois sombre / ardoise) */
+            --paper-color: #fdfaf0; /* Couleur papier vieilli */
+            --ink-color: #2c3e50;
+            --stamp-color: rgba(229, 115, 115, 0.8);
+            --font-serif: 'Lora', serif;
+            --font-sans: 'Mulish', sans-serif;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--desk-color);
+            /* Texture de bois/bureau très subtile */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+            font-family: var(--font-sans);
+            display: flex; justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Conteneur principal qui simule l'étalement sur le bureau */
+        .desk-surface {
+            width: 100%; max-width: 900px;
+            padding: 80px 20px;
+            position: relative;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        /* La "feuille" de dessous (décalée pour l'effet de pile) */
+        .paper-stack {
+            position: absolute;
+            top: 100px; width: 90%; height: 800px;
+            background: #eee;
+            transform: rotate(2deg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 1;
+        }
+
+        /* La feuille principale */
+        .main-paper {
+            position: relative;
+            width: 100%;
+            background-color: var(--paper-color);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' /%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='0.1'/%3E%3C/svg%3E");
+            padding: 80px;
+            box-sizing: border-box;
+            box-shadow: 10px 15px 40px rgba(0,0,0,0.6);
+            transform: rotate(-1deg);
+            z-index: 5;
+            min-height: 1000px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* En-tête administratif */
+        .paper-header {
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 50px;
+            padding-bottom: 20px;
+            display: flex; justify-content: space-between; align-items: flex-start;
+        }
+
+        .header-left .label {
+            font-weight: 900; font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 2px; color: #aaa; display: block; margin-bottom: 10px;
+        }
+
+        .header-left h1 {
+            font-family: var(--font-serif); font-size: 2.2rem; margin: 0; color: var(--ink-color);
+        }
+
+        /* Le tampon "CONFIDENTIAL" */
+        .stamp {
+            border: 4px solid var(--stamp-color);
+            color: var(--stamp-color);
+            font-weight: 900; font-size: 1.2rem;
+            padding: 5px 15px;
+            text-transform: uppercase;
+            transform: rotate(15deg);
+            font-family: var(--font-sans);
+            user-select: none;
+            border-radius: 4px;
+        }
+
+        /* Corps du texte bibliographique */
+        .biblio-body {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            line-height: 2;
+            color: #34495e;
+            white-space: pre-wrap;
+            position: relative;
+        }
+
+        /* Effet de lignes de cahier subtiles */
+        .biblio-body::before {
+            content: "";
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 100% 2.3rem; /* Aligné sur le line-height */
+            pointer-events: none;
+        }
+
+        /* Bouton pour fermer (discret sur le bureau) */
+        .close-btn {
+            position: fixed; top: 30px; left: 30px;
+            color: white; text-decoration: none;
+            font-weight: 800; text-transform: uppercase; font-size: 0.7rem;
+            letter-spacing: 2px; z-index: 100;
+            background: rgba(255,255,255,0.1); padding: 10px 20px;
+            border-radius: 50px; transition: 0.3s;
+        }
+        .close-btn:hover { background: var(--accent); background: #e57373; }
+
+        @media (max-width: 700px) {
+            .main-paper { padding: 40px 20px; transform: none; }
+            .paper-stack { display: none; }
+            .paper-header { flex-direction: column; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="javascript:window.close()" class="close-btn">← Quitter le dossier</a>
+
+    <div class="desk-surface">
+        <!-- Effet de pile de feuilles -->
+        <div class="paper-stack"></div>
+        
+        <main class="main-paper">
+            <header class="paper-header">
+                <div class="header-left">
+                    <span class="label">Observatoire Xeno // Archive Documentaire</span>
+                    <h1 id="biblio-title">Chargement...</h1>
+                </div>
+                <div class="stamp">Confidentiel</div>
+            </header>
+
+            <div class="biblio-body" id="biblio-content">
+                Récupération des données en cours...
+            </div>
+        </main>
+    </div>
+
+    <!-- Script de récupération -->
+    <script src="data.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const sectionId = urlParams.get('section');
+
+        if (sectionId && PHARMA_SUBS[sectionId]) {
+            const data = PHARMA_SUBS[sectionId];
+            document.getElementById('biblio-title').innerText = data.title;
+            // On utilise innerText pour garder les sauts de ligne propres du JS
+            document.getElementById('biblio-content').innerText = data.biblio;
+        } else {
+            document.getElementById('biblio-content').innerText = "ERREUR 404 : Le document demandé n'a pas été trouvé dans les archives.";
+        }
+    </script>
+</body>
+</html>

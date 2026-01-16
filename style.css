@@ -46,114 +46,117 @@ body {
     box-sizing: border-box; /* Crucial pour que 100% de largeur inclue le padding */
 }
 
+/* --- HEADER PLUS COMPACT --- */
 .header {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%; /* Occupe toute la largeur */
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 4%; /* Utilisation de % plutôt que px pour plus de flexibilité */
+    top: 0; left: 0; width: 100%;
+    height: auto; 
+    
+    /* On réduit les marges pour tout remonter */
+    padding: 10px 40px;  /* Avant: 15px */
+    gap: 5px;            /* Avant: 15px -> Colle les boutons plus près du titre */
+    
     z-index: 100;
-    background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+    background: linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+    
+    /* Flex column pour empiler Titre + Boutons */
+    display: flex; 
+    flex-direction: column;
 }
 
-/* On réduit légèrement la taille de la légende pour qu'elle respire */
-.legend {
-    display: flex;
-    gap: 15px;
-    font-size: 0.75rem; /* Taille de police optimisée */
-    font-weight: 800;
-    text-transform: uppercase;
-    flex-wrap: nowrap; /* Empêche le retour à la ligne sur bureau */
+/* Ligne du haut inchangée */
+.header-top {
+    display: flex; 
+    justify-content: space-between; 
     align-items: center;
+    width: 100%;
+    pointer-events: auto;
+    margin-bottom: 2px; /* Petit ajustement fin */
 }
 
-.legend div {
-    display: flex;
-    align-items: center;
-    white-space: nowrap; /* Empêche "Bio-Industrie" de se couper en deux */
-}
-
-logo {
-    display: flex;
-    align-items: center;
-    cursor: default;
-    user-select: none;
-}
-
-.logo-main {
-    font-family: var(--font-serif);
-    font-size: 1.8rem;
-    font-weight: 800; /* Très gras */
-    color: var(--text-dark);
-    letter-spacing: -1px; /* Lettres serrées pour le premier mot */
-    position: relative;
-}
-
-/* Le petit point de détail "biologique" sur le X */
-.logo-main::first-letter {
-    color: var(--pig-main); /* Rappel discret de la source porcine */
-}
-
-.logo-sub {
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    font-weight: 400; /* Très léger */
-    text-transform: uppercase;
-    letter-spacing: 5px; /* Très espacé pour le contraste */
-    margin-left: 12px;
-    padding-left: 12px;
-    border-left: 1px solid rgba(0,0,0,0.1); /* Fine ligne de séparation */
-    color: #7f8c8d;
-    display: inline-block;
-    padding-top: 4px;
-}
-
-/* Effet au survol du titre global */
-.logo:hover .logo-main {
-    color: #000;
-}
-
-.logo:hover .logo-sub {
-    color: var(--human-main); /* Transition vers le bleu cible */
-    border-left-color: var(--human-main);
-    transition: all 0.4s ease;
-}
-
-.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
-
-.sim-link {
-    /* ... vos styles ... */
-    margin: 0 10px;
-    flex-shrink: 0; /* Empêche le bouton de s'écraser */
-}
+/* --- BOUTONS PLUS FINS --- */
 .sim-button {
     text-decoration: none;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.7);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    
+    /* On réduit le padding pour des boutons moins hauts */
+    padding: 6px 14px; /* Avant: 10px 18px */
+    
+    background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 4px; /* Forme plus carrée/médicale */
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    position: relative;
-    overflow: hidden;
-}
-
-.sim-text {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    
     font-family: var(--font-sans);
     font-weight: 800;
-    font-size: 0.7rem;
+    font-size: 0.65rem; /* Police légèrement réduite */
     color: var(--text-dark);
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
+    
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+/* Hover inchangé */
+.sim-button:hover {
+    background: #fff;
+    border-color: var(--friction-main);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* Ligne du haut : Logo et Légende */
+.header-top {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
+    pointer-events: auto;
+}
+
+/* Logo (Style restauré) */
+.logo-main {
+    font-family: var(--font-serif); font-size: 1.8rem; font-weight: 800;
+    color: var(--text-dark); letter-spacing: -1px;
+}
+.logo-main::first-letter { color: var(--pig-main); }
+.logo-sub {
+    font-family: var(--font-sans); font-size: 0.85rem; font-weight: 400;
+    text-transform: uppercase; letter-spacing: 5px;
+    margin-left: 12px; padding-left: 12px;
+    border-left: 1px solid rgba(0,0,0,0.1); color: #7f8c8d;
+}
+
+/* Légende (Style restauré) */
+.legend {
+    display: flex; gap: 15px;
+    font-size: 0.75rem; font-weight: 800;
+    text-transform: uppercase;
+}
+.legend div { display: flex; align-items: center; }
+.dot { width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+
+/* --- BARRE DE NAVIGATION --- */
+.header-nav {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    gap: 12px;
+    pointer-events: auto;
+    flex-wrap: wrap; /* Permet le retour à la ligne sur petits écrans */
+}
+
+
+/* Icônes dans les boutons */
+.sim-button .icon { font-size: 1rem; margin-right: 2px; }
+
+/* Le bouton central (Jeu) peut être très légèrement distingué (optionnel) */
+.main-btn {
+    border-color: var(--text-dark); /* Bordure plus foncée pour le distinguer */
+    background: rgba(255, 255, 255, 0.9);
 }
 
 /* Le petit point "Live" */
@@ -181,13 +184,6 @@ logo {
     100% { transform: scale(3.5); opacity: 0; }
 }
 
-/* Hover : l'esthétique s'affine */
-.sim-button:hover {
-    background: #ffffff;
-    border-color: var(--friction-main);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-}
 
 .sim-button:active {
     transform: translateY(0);
@@ -607,6 +603,187 @@ logo {
     font-size: 0.8rem;
 }
 
+/* --- STYLE DES GRANDES MODALES (POP-UPS) --- */
+
+/* Fond sombre flouté */
+.modal-overlay, .large-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(20, 30, 40, 0.6); /* Plus sombre pour le contraste */
+    backdrop-filter: blur(12px);       /* Flou plus intense */
+    z-index: 5000;
+    
+    /* Centrage */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    
+    /* Transition douce */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* État actif */
+.modal-overlay.active, .large-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* LA FEUILLE (Conteneur principal) */
+.paper-style, .modal-content {
+    width: 100%; max-width: 750px;
+    max-height: 85vh; /* Ne dépasse pas l'écran */
+    
+    /* Aspect Papier Premium */
+    background-color: #fdfbf7; /* Blanc cassé très chaud */
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 12px;
+    box-shadow: 
+        0 20px 50px -10px rgba(0,0,0,0.3), /* Ombre profonde */
+        0 0 0 1px rgba(255,255,255,0.5) inset; /* Petit reflet interne */
+    
+    padding: 50px;
+    position: relative;
+    display: flex; flex-direction: column;
+    
+    /* Animation d'entrée (Le papier monte légèrement) */
+    transform: translateY(20px) scale(0.98);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.active .paper-style {
+    transform: translateY(0) scale(1);
+}
+
+/* Bouton Fermer Élégant */
+.close-modal-btn {
+    position: absolute; top: 20px; right: 20px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #888;
+    font-size: 1rem; line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+}
+.close-modal-btn:hover {
+    background: var(--pig-main);
+    border-color: var(--pig-main);
+    color: white;
+    transform: rotate(90deg);
+}
+
+/* Titres */
+.modal-title-large {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    color: #1a1a1a;
+    margin: 0 0 30px 0;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(0,0,0,0.05);
+    letter-spacing: -0.5px;
+}
+
+/* Corps du texte avec Scroll */
+.modal-body-scroll {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 15px;
+    
+    /* Typo de lecture agréable */
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #444;
+}
+
+/* Custom Scrollbar */
+.modal-body-scroll::-webkit-scrollbar { width: 6px; }
+.modal-body-scroll::-webkit-scrollbar-track { background: transparent; }
+.modal-body-scroll::-webkit-scrollbar-thumb { background-color: #ddd; border-radius: 10px; }
+
+/* --- CONTENU SPÉCIFIQUE (Chronologie, Glossaire...) --- */
+
+/* 1. CHRONOLOGIE (Ligne de temps) */
+.timeline-list {
+    list-style: none; padding: 0; margin: 0;
+    position: relative;
+    border-left: 2px solid #e0e0e0;
+    margin-left: 10px;
+}
+.timeline-list li {
+    margin-bottom: 25px;
+    padding-left: 25px;
+    position: relative;
+}
+.timeline-list li::before {
+    content: '';
+    position: absolute; left: -6px; top: 6px;
+    width: 10px; height: 10px;
+    background: #fff;
+    border: 2px solid var(--friction-main);
+    border-radius: 50%;
+}
+.timeline-list strong {
+    display: block;
+    color: var(--text-dark);
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+}
+
+/* 2. GLOSSAIRE (Définitions) */
+.glossary-list dt {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    margin-top: 20px;
+    padding-left: 10px;
+    border-left: 3px solid var(--human-main);
+}
+.glossary-list dd {
+    margin: 5px 0 0 15px;
+    color: #666;
+    font-style: normal;
+}
+
+/* 3. PROSPECTION (Cartes Scénarios) */
+.prosp-card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: transform 0.2s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+.prosp-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border-color: var(--friction-main);
+}
+.prosp-card h4 {
+    margin: 0 0 8px 0;
+    color: var(--text-dark);
+    font-family: var(--font-serif);
+}
+.prosp-card p { margin: 0; font-size: 0.9rem; }
+
+/* 4. XTP (Sous-titres) */
+.modal-body-scroll h3 {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #999;
+    margin: 30px 0 10px 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
 
 
 @keyframes fadeIn {
@@ -616,21 +793,20 @@ logo {
 
 
 @media (max-width: 900px) {
-    .header {
-        position: relative; /* Reprend sa place dans le flux pour pouvoir scroller */
-        height: auto;
-        padding: 15px;
-        flex-direction: column; /* Empile le logo et la légende */
-        gap: 10px;
-        width: 100%;
-        background: rgba(255,255,255,0.95);
-    }
+    .header { padding: 15px; background: rgba(255,255,255,0.98); position: relative; }
+    .header-top { flex-direction: column; gap: 10px; margin-bottom: 10px; }
+    .header-nav { gap: 8px; }
+    .sim-button { padding: 8px 12px; font-size: 0.65rem; flex-grow: 1; }
+    .logo-sub { display: none; } /* On simplifie le logo sur mobile */
+
+    .nav-group { width: 100%; justify-content: center; }
+    .nav-btn { font-size: 0.65rem; padding: 6px 10px; }
+    .paper-style { width: 100%; height: 100%; border-radius: 0; padding: 20px; }
     .sim-button {
         order: -1; /* Place le bouton en haut sur mobile */
         margin-bottom: 5px;
     }
     .logo-main { font-size: 1.4rem; }
-    .logo-sub { font-size: 0.6rem; letter-spacing: 3px; margin-left: 8px; padding-left: 8px; }
     .legend {
         justify-content: center;
         flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si l'écran est très étroit */
@@ -672,9 +848,7 @@ logo {
         margin-top: 25px;
         padding: 10px;
     }
-}
-
-    /* Titre plus petit pour mobile */
+      /* Titre plus petit pour mobile */
     .modal-title {
         font-size: 1.5rem; /* Réduction de 2.2rem à 1.5rem */
         margin-bottom: 15px;
@@ -703,6 +877,13 @@ logo {
         margin-top: 30px;
         padding-bottom: 20px; /* Espace de sécurité en bas */
  
+}
+}
+
+  /* Mobile responsive */
+@media (max-width: 700px) {
+    .paper-style { padding: 25px; width: 100%; height: 100%; border-radius: 0; }
+    .modal-title-large { font-size: 1.6rem; }
 }
 
 /* Fix pour les très petits écrans (iPhone SE, etc.) */
