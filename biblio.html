@@ -161,7 +161,9 @@
             const data = PHARMA_SUBS[sectionId];
             document.getElementById('biblio-title').innerText = data.title;
             // On utilise innerText pour garder les sauts de ligne propres du JS
-            document.getElementById('biblio-content').innerText = data.biblio;
+            // On remplace les URLs par des vrais liens HTML cliquables automatiquement
+const formattedBiblio = data.biblio.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: #e57373; text-decoration: underline;">$1</a>');
+document.getElementById('biblio-content').innerHTML = formattedBiblio;
         } else {
             document.getElementById('biblio-content').innerText = "ERREUR 404 : Le document demandé n'a pas été trouvé dans les archives.";
         }
