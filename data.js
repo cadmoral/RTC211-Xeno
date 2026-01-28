@@ -1,18 +1,202 @@
 const XENO_DATA = [
     // --- CÔTÉ DONNEUR (PORC) : ALIGNEMENT GAUCHE ---
-    {
-        id: 'p1', side: 'pig', cat: 'Standardisation Organique', title: 'L\'Animal-Pharmacie',
+   {
+        id: 'p1', 
+        side: 'pig', 
+        cat: 'Standardisation Organique', 
+        title: "L'Animal-Pharmacie",
         img: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=600&q=80',
         y: 15,
-        desc: "L'animal n'est plus un être, c'est une technologie brevetée (CRISPR).",
-        sts: "Réification du vivant."
+        desc: `
+            <!-- En-tête : La mutation de l'objet -->
+            <div style="background: rgba(229, 115, 115, 0.05); padding: 20px; border-radius: 12px; border-left: 5px solid var(--pig-main); margin-bottom: 25px;">
+                <p style="font-family: var(--font-serif); font-size: 1.1rem; color: #1a1a1a; margin: 0;">
+                    L'animal n'est plus seulement un être biologique ; il devient une <strong>infrastructure programmable</strong> et une technologie brevetée.
+                </p>
+            </div>
+
+            <p style="font-size: 0.95rem; line-height: 1.6; color: #555; margin-bottom: 25px;">
+                Grâce aux "ciseaux moléculaires" <strong>CRISPR-Cas9</strong>, le génome du porc est édité pour supprimer les barrières d'espèce et "humaniser" les organes. Ce processus transforme l'animal en un dispositif médical standardisé.
+            </p>
+
+            <!-- La "Recette" Génétique -->
+            <div style="display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 25px;">
+                
+                <div style="background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 10px; display: flex; align-items: flex-start; gap: 12px;">
+                    <span style="background: #eee; padding: 5px 8px; border-radius: 4px; font-weight: 800; font-size: 0.7rem; color: #666;">KO</span>
+                    <div>
+                        <strong style="display: block; font-size: 0.9rem; color: var(--pig-main);">Knock-Out : Suppression</strong>
+                        <p style="font-size: 0.8rem; margin: 3px 0 0 0; color: #777;">Élimination du gène <strong>GGTA1</strong> (sucre Alpha-Gal) pour stopper le rejet hyperaigu immédiat.</p>
+                    </div>
+                </div>
+
+                <div style="background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 10px; display: flex; align-items: flex-start; gap: 12px;">
+                    <span style="background: #eee; padding: 5px 8px; border-radius: 4px; font-weight: 800; font-size: 0.7rem; color: #666;">KI</span>
+                    <div>
+                        <strong style="display: block; font-size: 0.9rem; color: var(--pig-main);">Knock-In : Insertion</strong>
+                        <p style="font-size: 0.8rem; margin: 3px 0 0 0; color: #777;">Ajout de transgènes humains (<strong>hCD46, hTBM</strong>) pour réguler le complément et la coagulation.</p>
+                    </div>
+                </div>
+
+                <div style="background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 10px; display: flex; align-items: flex-start; gap: 12px;">
+                    <span style="background: #eee; padding: 5px 8px; border-radius: 4px; font-weight: 800; font-size: 0.7rem; color: #666;">SEC</span>
+                    <div>
+                        <strong style="display: block; font-size: 0.9rem; color: var(--pig-main);">Sécurité Génomique</strong>
+                        <p style="font-size: 0.8rem; margin: 3px 0 0 0; color: #777;">Inactivation des rétrovirus endogènes porcins (<strong>PERV</strong>) pour prévenir tout risque de zoonose.</p>
+                    </div>
+                </div>
+
+            </div>
+             <p style="font-family: var(--font-serif); font-size: 1.1rem; color: #1a1a1a; margin: 0;">
+                    L'animal n'est plus seulement un être biologique ; il devient une <strong>infrastructure programmable</strong>. Le génome est traité comme un code logiciel que l'on édite pour lever les barrières d'espèce.
+                </p>
+            </div>
+
+            <h3 style="font-family: var(--font-serif); font-size: 1.3rem; margin-bottom: 15px; color: #333; text-align: center;">
+                Spécifications Génomiques du Porc Donneur
+            </h3>
+
+            <!-- TABLEAU TECHNIQUE DES MODIFICATIONS -->
+            <div style="overflow-x: auto; border: 1px solid #eee; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem; text-align: left; font-family: var(--font-sans); min-width: 600px;">
+                    <thead style="background: #f8f9fa; border-bottom: 2px solid #eee;">
+                        <tr>
+                            <th style="padding: 12px; color: #666; text-transform: uppercase; font-size: 0.7rem;">Objectif Biologique</th>
+                            <th style="padding: 12px; color: #666; text-transform: uppercase; font-size: 0.7rem;">Gène / Modification</th>
+                            <th style="padding: 12px; color: #666; text-transform: uppercase; font-size: 0.7rem;">Action Spécifique</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- REJET - INACTIVATION -->
+                        <tr style="border-bottom: 1px solid #f9f9f9;">
+                            <td rowspan="4" style="padding: 12px; font-weight: 700; color: var(--pig-main); vertical-align: top; background: #fffafb;">
+                                LIMITER LE REJET<br><small style="font-weight:400; color:#999;">(Inactivation enzymatique)</small>
+                            </td>
+                            <td style="padding: 12px;"><strong>GT-KO</strong> (α1,3-gal)</td>
+                            <td style="padding: 12px; font-style: italic;">Inactivation de l'α-Gal (rejet hyperaigu).</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f9f9f9;">
+                            <td style="padding: 12px;"><strong>CMAH-KO</strong> (Neu5Gc)</td>
+                            <td style="padding: 12px; font-style: italic;">Inactivation de la synthèse Neu5Gc.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f9f9f9;">
+                            <td style="padding: 12px;"><strong>β4GalNT2-KO</strong> (Sda)</td>
+                            <td style="padding: 12px; font-style: italic;">Inactivation de la synthèse Sda.</td>
+                        </tr>
+                        <tr style="border-bottom: 2px solid #eee;">
+                            <td style="padding: 12px; background: #fff5f6;"><strong>T-KO</strong></td>
+                            <td style="padding: 12px; background: #fff5f6; font-weight:700;">Triple Inactivation (GT + CMAH + β4Gal)</td>
+                        </tr>
+
+                        <!-- REJET - PROTEINES HUMAINES -->
+                        <tr style="border-bottom: 1px solid #f9f9f9;">
+                            <td rowspan="5" style="padding: 12px; font-weight: 700; color: var(--human-main); vertical-align: top; background: #f4faff;">
+                                LIMITER LE REJET<br><small style="font-weight:400; color:#999;">(Expression protéines humaines)</small>
+                            </td>
+                            <td style="padding: 12px;"><strong>hCD46, hCD55, hCD59</strong></td>
+                            <td style="padding: 12px; font-style: italic;">Régulation du complément humain.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f9f9f9;">
+                            <td style="padding: 12px;"><strong>hCD47</strong></td>
+                            <td style="padding: 12px; font-style: italic;">Inhibition des macrophages.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f9f9f9;">
+                            <td style="padding: 12px;"><strong>hHLA-E / hβ2M</strong></td>
+                            <td style="padding: 12px; font-style: italic;">Inhibition des cellules Natural Killer (NK).</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f9f9f9;">
+                            <td style="padding: 12px;"><strong>hHO-1, hA20</strong></td>
+                            <td style="padding: 12px; font-style: italic;">Molécules anti-inflammatoires.</td>
+                        </tr>
+                        <tr style="border-bottom: 2px solid #eee;">
+                            <td style="padding: 12px;"><strong>hTBM, hEPCR</strong></td>
+                            <td style="padding: 12px; font-style: italic;">Régulation de la coagulation humaine.</td>
+                        </tr>
+
+                        <!-- RISQUE ZOONOTIQUE -->
+                        <tr style="border-bottom: 2px solid #eee;">
+                            <td style="padding: 12px; font-weight: 700; color: #555; background: #f8f9fa;">RISQUE ZOONOTIQUE</td>
+                            <td style="padding: 12px;"><strong>PERV-KO</strong></td>
+                            <td style="padding: 12px; font-style: italic;">Inactivation des rétrovirus endogènes.</td>
+                        </tr>
+
+                        <!-- CONTRAINTES ANATOMIQUES -->
+                        <tr>
+                            <td style="padding: 12px; font-weight: 700; color: #555; background: #f8f9fa;">CONTRAINTES ANATOMIQUES</td>
+                            <td style="padding: 12px;"><strong>GHR-KO</strong></td>
+                            <td style="padding: 12px; font-style: italic;">Contrôle de la croissance du greffon.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="background: #2c3e50; color: #fff; padding: 15px; border-radius: 8px; font-size: 0.85rem; display: flex; align-items: center; gap: 15px;">
+                <span style="font-size: 1.5rem;">⚖️</span>
+                <p style="margin: 0; line-height: 1.4;">
+                    <strong>Propriété Intellectuelle :</strong> Chaque combinaison de modifications fait l'objet de brevets (ex: Revivicor, eGenesis), transformant le génome animal en une plateforme industrielle propriétaire.
+                </p>
+            </div>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <button class="page-link-btn" style="border-color: var(--pig-main); color: var(--pig-main);" onclick="UI.loadDetailSub('visions_science', 'p1')">Voir l'application clinique de ces modifications</button>
+            </div> `,
+        sts: "Réification du vivant : l'animal devient un hardware breveté dont le génome est traité comme un code logiciel.",
+        biblio_id: "genetique_biblio"
     },
-    {
-        id: 'p2', side: 'pig', cat: 'Fermes porcs transgéniques', title: 'Vies Stériles',
+   {
+        id: 'p2', 
+        side: 'pig', 
+        cat: 'Fermes porcs transgéniques', 
+        title: 'Vies Stériles',
         img: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=600&q=80',
         y: 45,
-        desc: "L'existence en bulles aseptisées (DPF) pour garantir la sécurité sanitaire.",
-        sts: "Paradoxe : un animal 'sain' est un animal dénaturé."
+        desc: `
+            <!-- Introduction : Le concept DPF/SPF -->
+            <div style="background: rgba(229, 115, 115, 0.05); padding: 20px; border-radius: 12px; border-left: 5px solid var(--pig-main); margin-bottom: 25px;">
+                <p style="font-size: 1rem; line-height: 1.6; color: #1a1a1a; margin: 0;">
+                    Il est crucial que les porcs donneurs soient élevés dans des environnements ultra-contrôlés et aseptisés dits <strong>Designated Pathogen-Free (DPF)</strong> ou <strong>Specific Pathogen-Free (SPF)</strong>. 
+                </p>
+            </div>
+
+            <p style="font-size: 0.95rem; line-height: 1.6; color: #555; margin-bottom: 25px;">
+                Ces conditions visent à minimiser tout risque de contamination microbienne ou virale (zoonoses) transmissible à l’humain. Dans ces <em>barrier facilities</em>, les porcs naissent par césarienne, sans contact avec la mère, et vivent sous surveillance bio-sécuritaire stricte.
+            </p>
+
+            <!-- Grille des Enjeux -->
+            <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px;">
+                
+                <div style="background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 10px;">
+                    <h4 style="margin: 0 0 8px 0; font-family: var(--font-serif); color: var(--pig-main); font-size: 1.1rem;">🛡️ Réduction des risques zoonotiques</h4>
+                    <p style="font-size: 0.85rem; line-height: 1.5; color: #666; margin: 0;">
+                        L'élimination des agents pathogènes (rétrovirus endogènes, cytomégalovirus porcin) avant même l'utilisation de l'organe est vitale pour éviter des réponses immunitaires dangereuses ou des pandémies.
+                    </p>
+                </div>
+
+                <div style="background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 10px;">
+                    <h4 style="margin: 0 0 8px 0; font-family: var(--font-serif); color: var(--pig-main); font-size: 1.1rem;">🔬 Fiabilité des résultats cliniques</h4>
+                    <p style="font-size: 0.85rem; line-height: 1.5; color: #666; margin: 0;">
+                        Les porcs SPF présentent des profils immunitaires plus stables garantissant des organes plus sûrs et des essais plus reproductibles.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Bloc Technique -->
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; border: 1px solid #eee; font-size: 0.85rem;">
+                <h4 style="margin-top: 0; text-transform: uppercase; letter-spacing: 1px; color: #999; font-size: 0.7rem;">Protocole de Biosécurité</h4>
+                <ul style="padding-left: 18px; margin-bottom: 0; color: #555;">
+                    <li>Césarienne et isolement néonatal immédiat.</li>
+                    <li>Contrôles microbiologiques et diagnostiques continus.</li>
+                    <li>Filtration de l'air et procédures strictes de désinfection des accès.</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <a class="page-link-btn" style="border-color: var(--pig-main); color: var(--pig-main);" onclick="UI.loadDetailSub('dpf_spf_details', 'p2')">Accéder aux données techniques DPF/SPF</a>
+            </div>
+        `,
+        sts: "L'animal n'est plus élevé, il est 'fabriqué' dans une bulle sanitaire.",
+        biblio_id: "dpf_spf_biblio" // Identifiant pour le lien direct biblio
     },
     { 
         id: 'p3', side: 'pig', cat: 'Asso. Droits Animaux', title: 'Défense du Sentient', 
@@ -400,12 +584,67 @@ const XENO_DATA = [
 
     // 3. MÉDIAS
     {
-        id: 'f_media', side: 'friction', cat: 'Médias', title: 'Spectacle Médical',
-        img: 'https://images.unsplash.com/photo-1586339949916-3e9457bef6d3?auto=format&fit=crop&w=600&q=80',
-        y: 30,
-        desc: "Comment la presse transforme une expérience chirurgicale en épopée héroïque.",
-        sts: "La science a besoin du spectacle."
-    },
+    id: 'f_media', side: 'friction', cat: 'Médias & Opinion', title: 'Spectacle Médical',
+    img: 'https://images.unsplash.com/photo-1586339949916-3e9457bef6d3?auto=format&fit=crop&w=600&q=80',
+    y: 30,
+    desc: `
+        <div class="pharma-intro-header">
+            <p><strong>Kiosque de Veille Internationale</strong></p>
+            <p>Analyse de la couverture médiatique : comment la presse transforme une innovation biologique en épopée héroïque ou en menace sanitaire.</p>
+        </div>
+
+        <div class="kiosk-grid">
+            <!-- Article USA 1 -->
+            <div class="press-card">
+                <span class="press-label">The New York Times • USA</span>
+                <a href="https://www.straitstimes.com/world/united-states/scientists-grow-more-hopeful-about-ending-a-global-organ-shortage target="_blank"  class="press-title">
+                    Les scientifiques sont de plus en plus optimistes quant à la fin à la pénurie mondiale d’organes.
+                </a>
+                <div class="press-meta">
+                    <span>Novembre 2025</span>
+                    <span class="press-btn">Contenu via The Straits Times</span>
+                </div>
+            </div>
+
+            <!-- Article USA 2 -->
+            <div class="press-card">
+                <span class="press-label">NPR News • Radio USA</span>
+                <a href="https://www.npr.org/2024/05/12/1250835113/pig-kidney-transplant-richard-slayman" target="_blank" class="press-title">
+                    Audio : Rick Slayman, le premier espoir vivant
+                </a>
+                <div class="press-meta">
+                    <span>Ma 2024</span>
+                    <span class="press-btn">ÉCOUTER LE PODCAST →</span>
+                </div>
+            </div>
+
+            <!-- Article FRANCE 1 -->
+            <div class="press-card" style="border-left-color: var(--pig-main);">
+                <span class="press-label">Le Monde • France</span>
+                 <a href="https://www.lemonde.fr/sciences/article/2025/01/27/vivre-avec-un-c-ur-ou-un-rein-de-cochon-bientot-une-realite-therapeutique_6518751_1650684.html" target="_blank" class="press-title">
+                    Vivre avec un cœur ou un rein de cochon, bientôt une réalité thérapeutique ?
+                </a>
+                <div class="press-meta">
+                    <span>2024</span>
+                    <span class="press-btn">LIRE SUR LE MONDE →</span>
+                </div>
+            </div>
+
+            <!-- Article France inter -->
+            <div class="press-card" style="border-left-color: var(--pig-main);">
+                <span class="press-label">France Inter • Radio FR</span>
+                <a href="https://www.radiofrance.fr/franceinter/podcasts/la-terre-au-carre/la-terre-au-carre-du-jeudi-22-janvier-2026-7018971" target="_blank" class="press-title">
+                    Audio: Où en est-on des transplantations d’organes de l’animal à l’humain ?
+                </a>
+                <div class="press-meta">
+                    <span>Émission radio/span>
+                    <span class="press-btn">VOIR LE SUJET →</span>
+                </div>
+            </div>
+        </div>
+    `,
+    sts: "La médiatisation agit comme un accélérateur d'acceptabilité sociale, mais simplifie souvent les risques immunologiques réels."
+},
 
     // 4. PUBLIC
    // 4. PUBLIC (Mise à jour avec le contenu détaillé)
@@ -528,40 +767,115 @@ const XENO_DATA = [
         id: 'f_pharma',
         side: 'friction',
         cat: 'Industrie Pharmaceutique',
-        title: 'Co-Architectes',
+        title: 'La Cheville Ouvrière',
         img: 'https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?auto=format&fit=crop&w=600&q=80',
         y: 82,
         desc: `
-            <div class="pharma-intro-header">
-                <p><strong>L’industrie pharmaceutique est co-architecte de la xénotransplantation.</strong></p>
-                <p>Le régime thérapeutique n'est pas un simple accompagnement : il devient une condition de possibilité absolue de la greffe.</p>
-            </div>
-            
-            <div class="pharma-section">
-                <h3>1. Le Régime Thérapeutique</h3>
-                <p>La réussite clinique repose sur un équilibre complexe associant co-stimulation immunitaire et immunosuppression lourde.</p>
-                <a class="page-link-btn" onclick="UI.loadDetailSub('regime', 'f_pharma')">Détails Régime</a>
+            <!-- Introduction mise en valeur -->
+            <div style="background: rgba(251, 192, 45, 0.05); padding: 20px; border-radius: 12px; border-left: 5px solid var(--friction-main); margin-bottom: 30px;">
+                <p style="font-size: 1.1rem; line-height: 1.6; color: #1a1a1a; margin: 0;">
+                    <strong>L’industrie pharmaceutique est la cheville ouvrière de la xénotransplantation.</strong><br>
+                    <span style="font-weight: 400; color: #555;">Le régime thérapeutique n'est pas un simple accompagnement : il devient une condition de possibilité absolue de la greffe.</span>
+                </p>
             </div>
 
-            <div class="pharma-section">
-                <h3>2. Focus : Axe CD40/CD40L</h3>
-                <p>L’axe CD40/CD40L joue un rôle central dans l’activation coordonnée des lymphocytes. C'est le "verrou" technique actuel.</p>
-                <a class="page-link-btn" onclick="UI.loadDetailSub('cd40', 'f_pharma')">Détails CD40</a>
+            <!-- Grille des 3 points clés -->
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                
+                <!-- SECTION I -->
+                <div style="background: #fff; border: 1px solid #eee; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.02);">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <span style="background: var(--friction-main); color: #fff; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 800; font-size: 0.8rem;">I</span>
+                        <h3 style="margin: 0; font-family: var(--font-serif); font-size: 1.2rem;">Le régime thérapeutique</h3>
+                    </div>
+                    <p style="font-size: 0.95rem; line-height: 1.6; color: #444; margin: 0;">
+                        La réussite clinique d’une xénotransplantation repose sur un régime thérapeutique complexe associant co-stimulation immunitaire, immunosuppression d’entretien, prévention anti-infectieuse et dispositifs de surveillance.  
+                    </p>
+                    <p style="font-size: 0.95rem; line-height: 1.6; color: #444; margin: 0;">
+                         Le protocole médicamenteux n’accompagne pas la greffe : il  constitue une condition de possibilité.
+                    <p style="font-size: 0.95rem; line-height: 1.6; color: #444; margin: 0;">
+                       L’innovation se déplace de l’organe vers l’assemblage thérapeutique, conférant à l’industrie pharmaceutique un rôle structurant dans la définition d’une xénotransplanation “réussie”.
+                    </p>
+                </div>
+
+                <!-- SECTION II -->
+                <div style="background: #fff; border: 1px solid #eee; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.02);">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <span style="background: var(--friction-main); color: #fff; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 800; font-size: 0.8rem;">II</span>
+                        <h3 style="margin: 0; font-family: var(--font-serif); font-size: 1.2rem;">Point sur la co-stimulation CD40/CD40L</h3>
+                    </div>
+                    <p style="font-size: 0.95rem; line-height: 1.6; color: #444; margin: 0;">
+                        Ils ne sont pas développés “xéno-first”. 
+                    </p>
+                    <p style="font-size: 0.95rem; line-height: 1.6; color: #444; margin: 0;">
+                        L’axe CD40/CD40L joue un rôle central dans l’activation coordonnée des lymphocytes T et B, en fournissant un signal de co-stimulation indispensable à l’amplification de la réponse immunitaire adaptative. 
+                    </p>
+                    <p style="font-size: 0.95rem; line-height: 1.6; color: #444; margin: 0;">
+                        Intervenant en amont de la cascade immune, il conditionne la production d’anticorps et l’installation d’une réponse inflammatoire durable. 
+                    </p>
+                    Bloquer cet axe revient à empêcher que la réponse immunitaire ne se structure pleinement, plutôt qu’à en moduler les effets a posteriori.
+                    </p>
+
+                </div>
+
+                <!-- SECTION III -->
+                <div style="background: #fff; border: 1px solid #eee; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.02);">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <span style="background: var(--friction-main); color: #fff; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 800; font-size: 0.8rem;">III</span>
+                        <h3 style="margin: 0; font-family: var(--font-serif); font-size: 1.2rem;">Alliances pharmaceutiques</h3>
+                    </div>
+                    <p style="font-size: 0.95rem; line-height: 1.6; color: #444; margin: 0;">
+                        Le rôle de l’industrie pharmaceutique se manifeste aussi à travers des alliances stratégiques avec les biotechs spécialisées dans l’édition génétique animale. Ces partenariats articulent plateformes d’organes et molécules propriétaires, orientant les trajectoires de recherche et les critères de preuve clinique. 
+                    </p>
+                     <p style="font-size: 0.95rem; line-height: 1.6; color: #444; margin: 0;">
+                        La XTP se structure ainsi comme une plateforme industrielle, dans laquelle l’accès à l’organe est étroitement lié à l’accès à certains traitements.
+                    </p>    
+                </div>
             </div>
 
-            <div class="pharma-section">
-                <h3>3. Alliances Stratégiques</h3>
-                <p>Partenariats articulant plateformes d’organes (biotech) et molécules propriétaires (Big Pharma).</p>
-                <a class="page-link-btn" onclick="UI.loadDetailSub('alliances', 'f_pharma')">Analyse Alliances</a>
+            <div style="margin-top: 30px; text-align: center;">
+                <a class="page-link-btn" onclick="UI.loadDetailSub('alliances', 'f_pharma')">Plus sur l'industrie pharma</a>
             </div>`,
-        real: "Investissements massifs (United Therapeutics, eGenesis).",
-        sts: "La santé humaine devient un marché boursier."
+        real: "L'industrie Pharma ne fournit pas seulement des médicaments, mais les conditions de survie du greffon.",
+        sts: "La xénotransplantation comme plateforme industrielle intégrée."
     }
 ];
 
 // ... (Après la constante XENO_DATA) ...
 
 const PHARMA_SUBS = {
+    'dpf_spf_details': {
+        title: "Dossier : Élevage en milieu protégé (DPF/SPF)",
+        content: `
+            <div class="back-btn" onclick="UI.restoreParentMain('p2')">← Retour au dossier</div>
+            
+            <p><strong>Standardisation Organique :</strong> Dans la xénotransplantation, le donneur animal doit répondre à des standards de pureté comparables à ceux d'un produit pharmaceutique.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 25px;">
+                <div style="background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                    <strong>Designated Pathogen-Free (DPF) :</strong> Installations conçues pour générer des porcs exemptés de pathogènes spécifiques, avec des protocoles stricts de biosécurité pour éviter toute contamination.
+                </div>
+                
+                <div style="background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                    <strong>Impact Immunologique :</strong> L’utilisation de porcs SPF influence les paramètres sanguins et l’état immunitaire des animaux, ce qui peut être bénéfique pour réduire les complications lors des essais.
+                </div>
+                
+                <div style="background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                    <strong>Sécurité Zoonotique :</strong> Les porcs DPF/SPF réduisent drastiquement les risques de transmission de pathogènes zoonotiques lors des transplantations chez l'humain.
+                </div>
+            </div>
+        `,
+        real: "L'infrastructure DPF transforme l'élevage en une industrie de la biosécurité où le risque est géré dès la naissance.",
+        biblio: `Mueller, N. J., & Scobie, L. (2025). "Potential Infectious Complications in Pig Xenograft Donors and Recipients". *Transplant International*, 37, 13594. doi:10.3389/ti.2024.13594.
+
+Lee, W. K., Lee, H. C., Lee, S., et al. (2024). "The Influence of Specific Pathogen-Free and Conventional Environments on the Hematological Parameters of Pigs Bred for Xenotransplantation". *Life (Basel)*, 14(9), 1132. doi:10.3390/life14091132.
+
+Noordergraaf, J., et al. (2018). "Pathogen elimination and prevention within a regulated, Designated Pathogen Free, closed pig herd for long-term breeding and production of xenotransplantation materials". *Xenotransplantation*, 25(4), e12428. doi:10.1111/xen.12428.
+
+Denner, J. (2022). "Viral Safety in Xenotransplantation". *Frontiers in Immunology*.
+
+Schuurman, H. J. (2015). "The porcine donor". *Xenotransplantation Journal* (Wiley).`
+    },
     'regime': {
         title: "Détails Techniques : Régime",
         content: `<ul><li><strong>Bundle :</strong> Organe multi-modifié + anticorps anti-CD40 + perfusion ex-vivo.</li><li><strong>Dispositif chronique :</strong> La valeur bascule de l'acte chirurgical vers le suivi.</li></ul><br>
@@ -581,14 +895,299 @@ Kiniksa Pharmaceuticals. (2023). "KPL-404: Monoclonal Antibody Inhibitor of CD40
 Rabinovitch, A. (2021). "Iscalimab (CFZ533): A new era in transplantation?". Novartis Clinical Trials Data.`
     },
 
-    'alliances': {
-        title: "Alliances Industrielles",
-        content: `<ul><li><strong>eGenesis – Eledon :</strong> Accès au tegoprubart (anti-CD40L).</li><li><strong>United Therapeutics :</strong> Exemple d'intégration verticale massive.</li></ul><br>
-        La xénotransplantation se structure comme une plateforme industrielle ("Platform Technology"). On ne vend pas juste un rein, on vend un abonnement à vie comprenant : l'organe (United Therapeutics), le médicament propriétaire (Eledon) et le kit de monitoring génétique (Tissium).`,
-        real: "La XTP se structure comme une plateforme industrielle.",
-        biblio: `eGenesis Bio. (2024). "Strategic Partnership with Eledon Pharmaceuticals". Press Release.
-Rothblatt, M. (2018). "Your Life or Mine: How Geoethics Can Resolve the Conflict Between Public and Private Interests in Xenotransplantation". Ashgate.`
+    'visions_science': {
+        title: "Visions Scientifiques et Cliniques",
+        content: `
+            <div class="back-btn" onclick="UI.restoreParentMain('r_science')">← Retour au dossier</div>
+
+            <p style="margin-bottom: 30px; line-height: 1.6;">L'analyse des protocoles actuels révèle une fragmentation des approches selon le degré d'intervention génétique et l'objectif clinique (Ali A, 2024).</p>
+
+            <!-- 🟢 VISION MINIMALISTE -->
+            <details style="margin-bottom: 20px; border: 1px solid #eee; border-radius: 12px; background: #fff; overflow: hidden;" open>
+                <summary style="padding: 20px; font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; cursor: pointer; background: #f9fffb; list-style: none; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e6f4ea;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="background: #27ae60; color: white; padding: 2px 10px; border-radius: 4px; font-size: 0.7rem;">PRUDENCE</span>
+                        <span style="color: #27ae60;">Vision Minimaliste</span>
+                    </div>
+                    <span>▼</span>
+                </summary>
+                <div style="padding: 25px; border-left: 5px solid #27ae60;">
+                    <h4 style="margin: 0 0 10px 0; color: #27ae60;">👉 Tester le minimum nécessaire</h4>
+                    <p style="font-size: 0.95rem; margin-bottom: 20px;">On ne cherche pas à tout corriger génétiquement, on teste si un organe très peu modifié peut fonctionner dans un corps humain.</p>
+                    
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                        <strong>Principe :</strong> Peu de modifications (GGTA1-KO), modèles prudents et non vitaux. Preuve de faisabilité, pas encore thérapeutique.
+                    </div>
+
+                    <div style="border-left: 3px solid #ddd; padding-left: 15px; margin-bottom: 10px;">
+                        <strong>NYU Langone Health :</strong> Greffe d’un rein (GGTA1-KO) chez un receveur en mort cérébrale. Fonctionnement 32 jours sans rejet.
+                    </div>
+                </div>
+            </details>
+
+            <!-- 🟡 VISION INTERMÉDIAIRE -->
+            <details style="margin-bottom: 20px; border: 1px solid #eee; border-radius: 12px; background: #fff; overflow: hidden;">
+                <summary style="padding: 20px; font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; cursor: pointer; background: #fffdf9; list-style: none; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #fef5e7;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="background: #f39c12; color: white; padding: 2px 10px; border-radius: 4px; font-size: 0.7rem;">ÉQUILIBRE</span>
+                        <span style="color: #f39c12;">Vision Intermédiaire</span>
+                    </div>
+                    <span>▼</span>
+                </summary>
+                <div style="padding: 25px; border-left: 5px solid #f39c12;">
+                    <h4 style="margin: 0 0 10px 0; color: #f39c12;">👉 Corriger ce qu’on comprend</h4>
+                    <p style="font-size: 0.95rem; margin-bottom: 20px;">Nombre raisonné de modifications génétiques couplées à un contrôle physiologique et immunitaire strict.</p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+                        <div style="background: #fef9f0; padding: 15px; border-radius: 8px;">
+                            <strong>LMU Munich :</strong> Approche mécanistique (3 mods ciblées : GGTA1, hCD46, hTBM). Survie > 200 jours chez le babouin.
+                        </div>
+                        <div style="background: #fef9f0; padding: 15px; border-radius: 8px;">
+                            <strong>Pittsburgh :</strong> La génétique ne suffit pas. Le pilotage est physiologique (pression artérielle, corticoïdes).
+                        </div>
+                        <div style="background: #fef9f0; padding: 15px; border-radius: 8px;">
+                            <strong>Emory University :</strong> Vision systémique. La survie dépend de l'état immunitaire du receveur (déplétion CD4).
+                        </div>
+                        <div style="background: #fef9f0; padding: 15px; border-radius: 8px;">
+                            <strong>Revivicor :</strong> Vision industriel-clinique. Organes 3 à 10 modifications, orientés vers l'usage réel et reproductible.
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- 🔴 VISION MAXIMALISTE -->
+            <details style="margin-bottom: 20px; border: 1px solid #eee; border-radius: 12px; background: #fff; overflow: hidden;">
+                <summary style="padding: 20px; font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; cursor: pointer; background: #fffaf9; list-style: none; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #fdecea;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="background: #e74c3c; color: white; padding: 2px 10px; border-radius: 4px; font-size: 0.7rem;">INGÉNIERIE</span>
+                        <span style="color: #e74c3c;">Vision Maximaliste</span>
+                    </div>
+                    <span>▼</span>
+                </summary>
+                <div style="padding: 25px; border-left: 5px solid #e74c3c;">
+                    <h4 style="margin: 0 0 10px 0; color: #e74c3c;">👉 Tout corriger pour réduire l’inconnu</h4>
+                    <p style="font-size: 0.95rem; margin-bottom: 20px;">Le génome est vu comme une infrastructure entièrement programmable.</p>
+                    
+                    <div style="background: #fdf2f1; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                        <strong>eGenesis / Harvard :</strong> Maximalisme génomique. Inactivation de tous les PERV + ajout massif de transgènes humains (dizaines d'éditions).
+                    </div>
+
+                    <div style="background: #fdf2f1; padding: 15px; border-radius: 8px;">
+                        <strong>Maryland (NEJM 2022) :</strong> Maximalisme clinique. Porc à 10 modifications pour une survie de 60 jours chez un patient vivant.
+                    </div>
+                </div>
+            </details>
+
+            <!-- TABLEAU COMPARATIF STYLISÉ -->
+            <h3 style="font-family: var(--font-serif); font-size: 1.3rem; margin: 40px 0 20px 0; color: #1a1a1a; text-align: center;">
+                Tableau comparatif des visions en xénotransplantation
+            </h3>
+
+            <div style="overflow-x: auto; border: 1px solid #eee; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem; text-align: left; font-family: var(--font-sans); min-width: 800px;">
+                    <thead style="background: #2c3e50; color: white;">
+                        <tr>
+                            <th style="padding: 12px; border: 1px solid #444;">Vision</th>
+                            <th style="padding: 12px; border: 1px solid #444;">Logique générale</th>
+                            <th style="padding: 12px; border: 1px solid #444;">Acteurs / exemples cités</th>
+                            <th style="padding: 12px; border: 1px solid #444;">Modifications</th>
+                            <th style="padding: 12px; border: 1px solid #444;">Modèles</th>
+                            <th style="padding: 12px; border: 1px solid #444;">Ce que ça montre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- MINIMALISTE -->
+                        <tr style="background: #f9fffb;">
+                            <td style="padding: 12px; border: 1px solid #eee; font-weight: 800; color: #27ae60;">MINIMALISTE</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Tester le strict minimum pour voir si ça fonctionne chez l’humain</td>
+                            <td style="padding: 12px; border: 1px solid #eee;"><strong>NYU Langone :</strong> rein porcin GGTA1-KO</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">1 seule modification</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Humain en mort cérébrale (non vital)</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Preuve de faisabilité sans complexité génétique élevée</td>
+                        </tr>
+                        <!-- INTERMÉDIAIRE MÉCANISTIQUE -->
+                        <tr style="background: #fffdf9;">
+                            <td style="padding: 12px; border: 1px solid #eee; font-weight: 800; color: #f39c12;">INTERMÉDIAIRE <br><small>Mécanistique</small></td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Corriger des mécanismes précis du rejet</td>
+                            <td style="padding: 12px; border: 1px solid #eee;"><strong>LMU Munich :</strong> cœur 3 modifications</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Limitées (3–6), ciblées par fonction</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Primate non humain (babouin)</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Réponse ciblée à un problème biologique identifié</td>
+                        </tr>
+                        <!-- INTERMÉDIAIRE PHYSIOLOGIQUE -->
+                        <tr style="background: #fffdf9;">
+                            <td style="padding: 12px; border: 1px solid #eee; font-weight: 800; color: #f39c12;">INTERMÉDIAIRE <br><small>Physiologique</small></td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Stabiliser la fonction dans un organisme réel</td>
+                            <td style="padding: 12px; border: 1px solid #eee;"><strong>Pittsburgh :</strong> cœur orthotopique</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Génétique ciblée + ajustements physiologiques</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Babouins (modèles vitaux)</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">La génétique seule ne suffit pas, la physiologie est centrale</td>
+                        </tr>
+                        <!-- INTERMÉDIAIRE SYSTÉMIQUE -->
+                        <tr style="background: #fffdf9;">
+                            <td style="padding: 12px; border: 1px solid #eee; font-weight: 800; color: #f39c12;">INTERMÉDIAIRE <br><small>Systémique</small></td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Agir surtout sur le receveur plutôt que sur le greffon</td>
+                            <td style="padding: 12px; border: 1px solid #eee;"><strong>Emory University :</strong> survie rénale</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Rôle clé de l’immunosuppression</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Macaques (modèles vitaux)</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Réussite liée à l’état global du système immunitaire</td>
+                        </tr>
+                        <!-- INTERMÉDIAIRE INDUSTRIEL -->
+                        <tr style="background: #fffdf9;">
+                            <td style="padding: 12px; border: 1px solid #eee; font-weight: 800; color: #f39c12;">INTERMÉDIAIRE <br><small>Industriel</small></td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Produire des greffons fiables et reproductibles</td>
+                            <td style="padding: 12px; border: 1px solid #eee;"><strong>Revivicor :</strong> porcs 3–10 modifications</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Modifications connues et fonctionnelles</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Utilisés par équipes cliniques humaines</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Passage de la recherche à l’usage clinique standardisé</td>
+                        </tr>
+                        <!-- MAXIMALISTE GÉNOMIQUE -->
+                        <tr style="background: #fffaf9;">
+                            <td style="padding: 12px; border: 1px solid #eee; font-weight: 800; color: #e74c3c;">MAXIMALISTE <br><small>Génomique</small></td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Corriger toutes les barrières par édition massive</td>
+                            <td style="padding: 12px; border: 1px solid #eee;"><strong>eGenesis :</strong> dizaines d’éditions</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Très grand nombre de modifications</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Partenaires précliniques / Primate</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Le génome traité comme une infrastructure reprogrammable</td>
+                        </tr>
+                        <!-- MAXIMALISTE CLINIQUE -->
+                        <tr style="background: #fffaf9;">
+                            <td style="padding: 12px; border: 1px solid #eee; font-weight: 800; color: #e74c3c;">MAXIMALISTE <br><small>Clinique</small></td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Tester les limites en conditions humaines réelles</td>
+                            <td style="padding: 12px; border: 1px solid #eee;"><strong>Maryland :</strong> cœur à 10 modifications</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Génétique lourde + immunosuppression intense</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">Patient humain vivant</td>
+                            <td style="padding: 12px; border: 1px solid #eee;">La fonction clinique réelle prime sur la lisibilité biologique</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="text-align: right; font-size: 0.7rem; color: #999; margin-top: 10px;">Source : Synthèse d'après Ali A, 2024, Advances in organ xenotransplantation.</p>
+        `,
+        real: "La pluralité des paradigmes montre que le champ scientifique n'a pas encore stabilisé une 'norme' génétique unique.",
+        biblio: `Inserm. (2023). "Xénotransplantation : la réponse immunitaire après la greffe de reins de porcs décryptée". Salle de presse Inserm. https://presse.inserm.fr/xenotransplantation-pour-la-1re-fois-la-reponse-immunitaire-apres-la-greffe-de-reins-de-porcs-genetiquement-modifies-chez-lhumain-est-decryptee/67350/
+
+Cooper, D. K. C., et al. (2023). "Milestones on the path to clinical pig organ xenotransplantation". American Journal of Transplantation, 23(3), 326-335.
+
+Ali, A., et al. (2024). "Advances in organ and tissue xenotransplantation". Annual Review of Animal Biosciences, 12, 369-390. 
+
+Mou, L., et al. (2025). "Clinical xenotransplantation of gene-edited pig organs: a review of experiments in living humans since 2022". Medicine Bulletin, 1, 77-85.
+
+Lebranchu, Y. (2025). "Rapport 25-07. Les xénogreffes d’organes, de tissus et de cellules : un plan xénogreffe est nécessaire en France". Bull. Acad. Natl. Med., 209(7), 893-904.`
     },
+
+   
+// Dans votre objet PHARMA_SUBS (data.js)
+'alliances': {
+    title: "Analyse : L'Écosystème Bio-Pharmaceutique",
+    content: `
+        <div class="back-btn" onclick="UI.restoreParentMain('f_pharma')">← Retour à la vue d'ensemble</div>
+
+        <!-- SECTION I : LE RÉGIME THÉRAPEUTIQUE -->
+        <details style="margin-bottom: 20px; border: 1px solid #eee; border-radius: 12px; background: #fff; overflow: hidden;">
+            <summary style="padding: 20px; font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; cursor: pointer; background: #fdfdfd; list-style: none; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee;">
+                <span>I. Le régime thérapeutique : un assemblage</span>
+                <span style="color: var(--friction-main);">▼</span>
+            </summary>
+            <div style="padding: 25px; line-height: 1.7; color: #444;">
+                <p style="margin-top: 0;"><strong>La réussite XTP repose sur un assemblage complexe :</strong></p>
+                <ul style="padding-left: 20px; margin-bottom: 20px;">
+                    <li style="margin-bottom: 10px;"><strong>Co-stimulation (CD40/CD40L) :</strong> La brique pivot du protocole.</li>
+                    <li style="margin-bottom: 10px;"><strong>Immunosuppression d’entretien :</strong> Calcineurine, antiprolifératifs, stéroïdes, etc.</li>
+                    <li style="margin-bottom: 10px;"><strong>Prévention & Monitoring infectieux :</strong> Anti-infectieux et surveillance virologique constante.</li>
+                    <li style="margin-bottom: 10px;"><strong>Surveillance et diagnostics :</strong> Monitoring immunitaire, biomarqueurs et imagerie de pointe.</li>
+                </ul>
+
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 4px solid var(--friction-main);">
+                    <p style="margin: 0;">La xénotransplantation n'est pas un acte unique, mais un <strong>dispositif chronique</strong>. La valeur économique bascule vers un <strong>business model bio-pharmaceutique</strong> fondé sur la continuité du soin.</p>
+                </div>
+                
+                <p style="margin-top: 20px; font-size: 0.9rem; border-top: 1px dashed #ddd; padding-top: 15px;">
+                    <strong>Exemple :</strong> Lors de la première mondiale en 2022, l'autorisation portait sur un <em>bundle</em> indissociable : organe multi-modifié + anti-CD40 + dispositif de perfusion ex vivo + protocole immunosuppresseur complet.
+                </p>
+            </div>
+        </details>
+
+        <!-- SECTION II : CO-STIMULATION CD40/CD40L -->
+        <details style="margin-bottom: 20px; border: 1px solid #eee; border-radius: 12px; background: #fff; overflow: hidden;">
+            <summary style="padding: 20px; font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; cursor: pointer; background: #fdfdfd; list-style: none; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee;">
+                <span>II. Focus sur la co-stimulation CD40/CD40L</span>
+                <span style="color: var(--friction-main);">▼</span>
+            </summary>
+            <div style="padding: 25px; line-height: 1.7; color: #444;">
+                <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+                    <div style="border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;">
+                        <strong>Position dans la cascade :</strong> CD40 intervient en amont de l’activation T/B. Bloquer CD40, c’est empêcher le "signal 2", indispensable à l’amplification de la réponse immune.
+                    </div>
+                    <div style="border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;">
+                        <strong>Différence avec l’entretien :</strong> Contrairement aux traitements classiques qui modulent une réponse engagée, l’anti-CD40 empêche son démarrage.
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px; background: #fff4e5; padding: 15px; border-radius: 8px; font-size: 0.95rem;">
+                    <strong>Enjeux STS :</strong>
+                    <ul style="margin: 10px 0 0 0; padding-left: 20px;">
+                        <li><strong>Dépendance :</strong> Viabilité liée contractuellement à des molécules spécifiques.</li>
+                        <li><strong>Risque/Efficacité :</strong> Arbitrage permanent entre performance et sécurité.</li>
+                        <li><strong>Chronicité :</strong> Transformation de la greffe en service clinique récurrent.</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+
+        <!-- SECTION III : ALLIANCES PHARMACEUTIQUES (MAINTENANT RÉTRACTABLE) -->
+        <details style="margin-bottom: 20px; border: 1px solid #eee; border-radius: 12px; background: #fff; overflow: hidden;">
+            <summary style="padding: 20px; font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; cursor: pointer; background: #fdfdfd; list-style: none; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee;">
+                <span>III. Alliances stratégiques & Co-production</span>
+                <span style="color: var(--friction-main);">▼</span>
+            </summary>
+            <div style="padding: 25px; line-height: 1.7; color: #444;">
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <span style="font-size: 1.5rem;">🤝</span>
+                        <div>
+                            <strong>Le "Bundle" NEJM 2022 :</strong> La demande à la FDA matérialise la co-production organe–molécule–dispositif : 1 organe (10 modifs) + anti-CD40 (Kiniksa) + dispositif de perfusion (XVIVO).
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <span style="font-size: 1.5rem;">🔗</span>
+                        <div>
+                            <strong>Partenariat eGenesis–Eledon (2023) :</strong> Accès au <em>tegoprubart</em> (anti-CD40L) pour les études précliniques (rein/cœur/îlots). 
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <span style="font-size: 1.5rem;">📈</span>
+                        <div>
+                            <strong>Rhétorique de la promesse :</strong> Analyse des communiqués d'Eledon sur le "pipeline" et les "milestones" pour rassurer les investisseurs.
+                            <br><a href="https://ir.eledon.com/" target="_blank" style="color: var(--friction-main); font-size: 0.85rem; font-weight: 700; text-decoration: underline;">Consulter le portail investisseurs d'Eledon →</a>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <span style="font-size: 1.5rem;">🏛️</span>
+                        <div>
+                            <strong>Écosystème institutionnel :</strong> Le cas de l'Université du Maryland montre l'imbrication des financements et ressources (United Therapeutics, Revivicor, Kiniksa)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </details>
+    `,
+    real: "La xénotransplantation n'est pas UN objet biologique, mais un package industriel intégré.",
+    biblio: `Griffith, B. P., et al. (2022). "Genetically Modified Porcine-to-Human Cardiac Xenotransplantation". New England Journal of Medicine, 387(1), 35-44. https://www.nejm.org/doi/full/10.1056/NEJMoa2201422
+
+Pierson, R. N., 3rd. (2022). "Progress toward Pig-to-Human Xenotransplantation". New England Journal of Medicine, 386(20), 1871-1873. doi:10.1056/NEJMp2118019.
+
+Cooper, D. K. C., et al. (2023). "Milestones on the path to clinical pig organ xenotransplantation". American Journal of Transplantation, 23(3), 326-335.
+
+Eledon Pharmaceuticals. (2024). "Investor Relations & Newsroom: Pipeline and Milestones". https://ir.eledon.com/
+
+Mohiuddin, M. M., et al. (2022). "Progress in transplantation: Genetically modified porcine-to-human cardiac xenotransplantation". American Journal of Transplantation. https://doi.org/10.1016/j.ajt.2022.12.023.`
+},
     // --- INTERNATIONAL ---
     'loi_int': {
         title: "🌍 Normalisation Internationale",
@@ -722,12 +1321,21 @@ Lebranchu Y. Rapport 25-07. Les xénogreffes d’organes, de tissus et de cellul
 
     // 1. ÉCONOMIE & MARCHÉ
     'eco_market': {
-        title: "Le Marché de la Greffe",
+        title: "Le Marché de la Xénogreffe",
         content: `<ul><li><strong>Modèle :</strong> Passage d'un don gratuit (organes humains) à un produit tarifé industriel (organes animaux).</li><li><strong>Coût-Efficacité :</strong> Une transplantation coûte ~80k€ une fois, contre ~60k€/an pour la dialyse à vie. L'État a intérêt à payer.</li></ul><br>
-        L'argument économique est le moteur silencieux de la XTP. Les fonds d'investissement (Capital-Risque) parient sur le fait que les systèmes de santé préféreront payer cher une fois pour "réparer" le patient plutôt que de payer des soins chroniques. Cependant, le coût de production des porcs DPF (élevés en bulles stériles) reste prohibitif.`,
+        L'argument économique est un moteur silencieux de la XTP. Les fonds d'investissement (Capital-Risque) parient sur le fait que les systèmes de santé préféreront payer cher une fois pour "réparer" le patient plutôt que de payer des soins chroniques. Cependant, le coût de production des porcs DPF (élevés en bulles stériles) reste considérable.`,
         real: "Marché estimé à 25 milliards de dollars d'ici 2030 (Grand View Research).",
-        biblio: `Abou-Jaoude, M. (2023). "Cost-effectiveness analysis of xenotransplantation". American Journal of Transplantation.
-Rothblatt, M. (2020). "From Transgender to Transhuman". (Analyse économique United Therapeutics).`
+        biblio: `Krebs, C. E., McCarthy, J., Sullivan, K., Craner, J., Parent, B., & Lam, A. (2025). "Considering the Risks and Costs of Solid Organ Xenotransplantation". *Advanced Biology*. https://doi.org/10.1002/adbi.202400453
+
+Vasudev, K., & Cooper, D. K. C. (2025). "How Much Will a Pig Organ Transplant Cost? A Preliminary Estimate of the Cost of Xenotransplantation Versus Allotransplantation in the USA". *Xenotransplantation*, 32(1). https://doi.org/10.1111/xen.70018
+
+Fierce Biotech / MedTech. (2023). "United Therapeutics looks to hog bioengineered organ R&D with $91M Miromatrix buy". https://www.fiercebiotech.com/medtech/united-therapeutics-looks-hog-bioengineered-organ-rd-91m-miromatrix-buy
+
+Precedence Research. (2024). "Xenotransplantation Market Size, Share and Trends 2025 to 2034". https://www.precedenceresearch.com/xenotransplantation-market
+
+Zhang, Y., Gerdtham, U. G., Rydell, H., et al. (2023). "Healthcare costs after kidney transplantation compared to dialysis based on propensity score methods and real world longitudinal register data from Sweden". *Scientific Reports*, 13, 10730. https://doi.org/10.1038/s41598-023-37814-6
+
+Griffith, B. P., et al. (2022). "Genetically Modified Porcine-to-Human Cardiac Xenotransplantation". *NEJM*. https://www.nejm.org/doi/full/10.1056/NEJMoa2201422`
     },
 
     // 2. ÉTHIQUE ANIMALE
@@ -1160,46 +1768,99 @@ Rémy C. (2025). La frontière entre humains et animaux Enquête historique et e
 const RATIONALITY_DATA = [
     // --- GAUCHE (Côté Source) : L'OFFRE TECHNIQUE (2 cartes) ---
     {
-        id: 'r_science', side: 'pig', cat: 'Universités & Labos', title: 'Rationalité Scientifique',
+        id: 'r_science', 
+        side: 'pig', 
+        cat: 'Universités & Labos', 
+        title: 'Rationalité Scientifique',
         img: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80',
         y: 30,
         desc: `
-            <div class="pharma-intro-header">
-                <p><strong>Acteurs Clés :</strong> LMU Munich, Univ. Maryland, NYU Langone, Revivicor, eGenesis, United Therapeutics, Xenothera, Xenocure.</p>
-                <p>Positionnement globalement <strong>favorable</strong>, mais traversé par des postures épistémologiques différentes.</p>
+            <!-- EN-TÊTE : ACTEURS -->
+            <div style="background: #7298be; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.7;">Pôle d'Expertise</span>
+                <p style="margin: 5px 0 0 0; font-size: 0.9rem; line-height: 1.4;">
+                    <strong>Acteurs :</strong> LMU Munich, Maryland, NYU Langone, Revivicor, eGenesis, United Therapeutics, Xenothera.
+                </p>
             </div>
 
-            <div class="pharma-section">
-                <h3>1. Le Consensus (D'accord)</h3>
-                <ul>
-                    <li><strong>Nécessité :</strong> La XTP est la réponse rationnelle à la pénurie d'organes humains.</li>
-                    <li><strong>Maîtrise :</strong> Les obstacles biologiques (rejet, coagulation, infection) sont identifiables et techniquement surmontables.</li>
-                    <li><strong>Maturité :</strong> Les progrès en édition génétique et immunologie rendent la clinique envisageable.</li>
-                </ul>
+            <!-- SECTION 1 : LE CONSENSUS -->
+            <div style="margin-bottom: 25px;">
+                <h3 style="font-family: var(--font-serif); font-size: 1.2rem; border-bottom: 2px solid #eee; padding-bottom: 8px; margin-bottom: 15px;">
+                    1. État du Consensus
+                </h3>
+                <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
+                    <div style="display: flex; align-items: flex-start; gap: 10px; background: #fff; padding: 10px; border-radius: 6px; border: 1px solid #f0f0f0;">
+                        <span style="color: #27ae60;">✔</span>
+                        <p style="margin:0; font-size:0.85rem;"><strong>Nécessité :</strong> Seule réponse rationnelle à la pénurie d'organes.</p>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; gap: 10px; background: #fff; padding: 10px; border-radius: 6px; border: 1px solid #f0f0f0;">
+                        <span style="color: #27ae60;">✔</span>
+                        <p style="margin:0; font-size:0.85rem;"><strong>Maîtrise :</strong> Les verrous biologiques sont identifiés et surmontables.</p>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; gap: 10px; background: #fff; padding: 10px; border-radius: 6px; border: 1px solid #f0f0f0;">
+                        <span style="color: #27ae60;">✔</span>
+                        <p style="margin:0; font-size:0.85rem;"><strong>Maturité :</strong> CRISPR et l'immunologie permettent le passage en clinique.</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="pharma-section">
-                <h3>2. Les Frictions Internes</h3>
-                <p>Les tensions portent sur la <strong>translation vers l'humain</strong> (Preuve, Méthodologie, Vision du Vivant).</p>
+            <!-- SECTION 2 : ALLIANCES & OPPOSITIONS -->
+            <div style="margin-bottom: 30px;">
+                <h3 style="font-family: var(--font-serif); font-size: 1.2rem; border-bottom: 2px solid #eee; padding-bottom: 8px; margin-bottom: 15px;">
+                    2. Écosystème de Force
+                </h3>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="border-left: 4px solid var(--human-main); padding-left: 15px;">
+                        <strong style="font-size: 0.75rem; text-transform: uppercase; color: var(--human-main);">Alliances</strong>
+                        <p style="margin: 3px 0 0 0; font-size: 0.85rem; color: #555;">
+                            Fournit la matière première à l'<strong>Industrie Pharma</strong> et les preuves de sécurité pour la <strong>Régulation</strong>.
+                        </p>
+                    </div>
+                    <div style="border-left: 4px solid var(--pig-main); padding-left: 15px;">
+                        <strong style="font-size: 0.75rem; text-transform: uppercase; color: var(--pig-main);">Frictions</strong>
+                        <p style="margin: 3px 0 0 0; font-size: 0.85rem; color: #555;">
+                            Conflit frontal avec la <strong>Défense Animale</strong> et les anxiétés liées à l'hybridation du <strong>Public</strong>.
+                        </p>
+                    </div>
+                </div>
             </div>
 
-            <div class="pharma-section">
-                <h3>3. Rapport de Force & Alliances</h3>
-                <p><strong>Position Centrale :</strong> La science établit la nature et le protocole de la XTP.</p>
+            <!-- SECTION 3 : LES 3 VISIONS -->
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                <h3 style="font-family: var(--font-serif); font-size: 1.1rem; margin: 0 0 15px 0; text-align: center;">
+                    Trois Visions Épistémologiques
+                </h3>
                 
-                <p style="margin-top:15px; border-left: 3px solid var(--human-main); padding-left:10px;">
-                    <strong>Alliances :</strong><br>
-                    Elle fournit la matière première à l'<a class="internal-link" onclick="UI.openNodeById('r_pharma')">Industrie Pharma</a>, justifie les investissements de la <a class="internal-link" onclick="UI.openNodeById('r_eco')">Sphère Économique</a> et s'appuie sur la <a class="internal-link" onclick="UI.openNodeById('r_reg')">Régulation</a> pour légitimer ses essais.
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <!-- Minimaliste -->
+                    <div style="display: flex; align-items: center; justify-content: space-between; background: white; padding: 10px 15px; border-radius: 8px; border: 1px solid #e6f4ea;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: #27ae60;">MINIMALISME</span>
+                        <span style="font-size: 0.7rem; background: #e6f4ea; color: #27ae60; padding: 2px 8px; border-radius: 4px;">Prouver</span>
+                    </div>
+                    <!-- Intermédiaire -->
+                    <div style="display: flex; align-items: center; justify-content: space-between; background: white; padding: 10px 15px; border-radius: 8px; border: 1px solid #fff5e6;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: #f39c12;">INTERMÉDIAIRE</span>
+                        <span style="font-size: 0.7rem; background: #fff5e6; color: #f39c12; padding: 2px 8px; border-radius: 4px;">Équilibrer</span>
+                    </div>
+                    <!-- Maximaliste -->
+                    <div style="display: flex; align-items: center; justify-content: space-between; background: white; padding: 10px 15px; border-radius: 8px; border: 1px solid #fdecea;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: #e74c3c;">MAXIMALISME</span>
+                        <span style="font-size: 0.7rem; background: #fdecea; color: #e74c3c; padding: 2px 8px; border-radius: 4px;">Saturer</span>
+                    </div>
+                </div>
+
+                <p style="font-size: 0.8rem; color: #777; font-style: italic; margin-top: 15px; text-align: center; line-height: 1.3;">
+                    « Il n’existe pas une seule bonne stratégie, mais un ensemble de visions complémentaires. »
                 </p>
 
-                <p style="margin-top:15px; border-left: 3px solid var(--pig-main); padding-left:10px;">
-                    <strong>Oppositions :</strong><br>
-                    Elle se heurte aux peurs irrationnelles supposées du <a class="internal-link" onclick="UI.openNodeById('r_public')">Grand Public</a> et aux critiques éthiques de la <a class="internal-link" onclick="UI.openNodeById('r_animal')">Défense Animale</a>.
-                </p>
-                <button class="page-link-btn" onclick="UI.loadDetailSub('regime', 'r_science')">Voir détail Régime</button>
-            </div>`,
-        sts: "Cadre de légitimité : La science définit ce qui est 'naturel' et 'faisable' pour le reste de la société."
+                <button class="page-link-btn" style="width: 100%; margin-top: 15px; border-color: #2c3e50; color: #2c3e50;" onclick="UI.loadDetailSub('visions_science', 'r_science')">
+                    Consulter le Dossier Expert
+                </button>
+            </div>
+        `,
+        sts: "La science comme arène de paradigmes concurrents. Cadre de légitimité : elle définit ce qui est 'naturel' et 'faisable' pour la société."
     },
+    
     {
         id: 'r_pharma', side: 'pig', cat: 'Industrie Pharma', title: 'Rationalité Thérapeutique',
         img: 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=600&q=80',
@@ -1240,7 +1901,8 @@ const RATIONALITY_DATA = [
                     <strong>Tensions & Influence :</strong><br>
                     Elle cristallise la méfiance du <a class="internal-link" onclick="UI.openNodeById('r_public')">Grand Public</a> (Big Pharma) et l'hostilité de la <a class="internal-link" onclick="UI.openNodeById('r_animal')">Défense Animale</a>. Elle pèse lourdement sur la <a class="internal-link" onclick="UI.openNodeById('r_reg')">Régulation</a> pour adapter la jurisprudence.
                 </p>
-                <button class="page-link-btn" onclick="UI.loadDetailSub('eco_market', 'r_pharma')">Voir détail Marché</button>
+                <button class="page-link-btn" onclick="UI.loadDetailSub('alliances', 'r_pharma')">Voir détail sur l'industrie pharma</button>
+                             
             </div>`,
         sts: "Le vivant devient un produit manufacturé (Biocaptalisme)."
     },

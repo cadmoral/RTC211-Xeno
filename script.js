@@ -155,7 +155,7 @@ const UI = {
     if (img) img.src = d.img;
     
     // Gérer l'extension de la sidebar pour les sections denses
-    if (d.id === 'h2' || d.id === 'f_philo' || d.id === 'f_droit' || d.id === 'p3' || d.id === 'h1' || d.id === 'f_public') {
+    if (d.id === 'h2' || d.id === 'f_philo' || d.id === 'f_droit' || d.id === 'p3' || d.id === 'h1' || d.id === 'f_public' ||d.side === 'pig' || d.id === 'visions_science') {
         sb.classList.add('expanded');
     } else {
         sb.classList.remove('expanded');

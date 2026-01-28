@@ -162,88 +162,160 @@
 </div>
 <!-- 1. END CHRONOOOO -->
 
-    <!-- 3. PROSPECTION -->
+<!-- 3. PROSPECTION (VERSION 3 ARCHIVES) -->
 <div class="modal-overlay large-modal" id="modal-prosp">
-    <div class="modal-content paper-style" style="padding: 0; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden;">
-        
-        <div style="padding: 15px 25px; background: white; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; z-index: 10;">
-            <h3 style="margin: 0; font-family: var(--font-serif); font-size: 1.1rem; color: #666;">Archive Prospective : Horizon 2035</h3>
+    <div class="modal-content paper-style" style="padding: 0; max-height: 100vh; display: flex; flex-direction: column; overflow: hidden; max-width: 150vh;">
+        <!-- Barre d'en-tête -->
+        <div style="padding: 20px 30px; background: white; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: left; z-index: 10;">
+            <div>
+                <h2 style="margin: 0; font-family: var(--font-serif); font-size: 1.8rem; color: var(--text-dark);">Cabinet de Prospection</h2>
+                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #999; font-weight: 800;">Scénario Horizon 2050</span>
+            </div>
             <button class="close-modal-btn" onclick="UI.closeModal('modal-prosp')" style="position: static; margin: 0;">✕</button>
         </div>
 
-        <div style="flex-grow: 1; overflow-y: auto; background: #444; padding: 20px 0;">
-            <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; padding: 0 20px;">
-                <img src="prosp1.png" alt="Journal 2035" style="width: 100%; height: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <!-- Zone de défilement des archives -->
+        <div style="flex-grow: 1; overflow-y: auto; background: #f0f0f0; padding: 40px 20px;">
+            <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
+                
+                <!-- DOCUMENT 1 : La Une de Presse -->
+                <div class="prosp-archive-card">
+                    <div class="prosp-tag">Le Monde</div>
+                    <h3 class="prosp-archive-title">2050 : L'ouverture de la première ferme DPF en France</h3>
+                    <p class="prosp-archive-desc">Analyse des tensions sociales et de la "Une" du Monde suite à l'inauguration du complexe de Châteauroux.</p>
+                    <img src="prosp1.jpg" alt="Archive 2050" class="prosp-archive-img">
+                </div>
+
+                <!-- DOCUMENT 2 : -->
+                <div class="prosp-archive-card">
+                    <div class="prosp-tag">Un débat prospectif</div>
+                    <h3 class="prosp-archive-title">Société, Législation et Science discutent sur la xénotransplantation</h3>
+                    <img src="prosp2.jpg" alt="Archive 2050" class="prosp-archive-img">
+                </div>
+
+              <!-- DOCUMENT 2 : -->
+                <div class="prosp-archive-card">
+                    <div class="prosp-tag">Le Monde </div>
+                    <h3 class="prosp-archive-title">2050 : La généralisation du "Bundle" Thérapeutique</h3>
+                    <p class="prosp-archive-desc">Vers une nouvelle forme de santé.</p>
+                    <img src="prosp3.jpg" alt="Archive 2050" class="prosp-archive-img">
+                </div>
+
             </div>
         </div>
     </div>
 </div>
-
     <!-- 4. GLOSSAIRE -->
-    <!-- 4. GLOSSAIRE (VERSION ÉTOFFÉE) -->
-<div class="modal-overlay large-modal" id="modal-gloss">
-    <div class="modal-content paper-style" style="max-width: 950px;">
+  <div class="modal-overlay large-modal" id="modal-gloss">
+    <div class="modal-content paper-style" style="max-width: 1000px;">
         <button class="close-modal-btn" onclick="UI.closeModal('modal-gloss')">✕</button>
         <h2 class="modal-title-large">Lexique de la Xénobiologie</h2>
         
         <div class="modal-body-scroll">
             <p style="margin-bottom: 30px; font-style: italic; color: #777;">
-                Termes techniques, médicaux et éthiques structurant le débat sur la xénotransplantation.
+                Termes techniques, médicaux et éthiques mis à jour selon les protocoles cliniques 2024-2025.
             </p>
 
             <div class="glossary-grid">
                 
-                <!-- CATÉGORIE : GÉNÉTIQUE -->
+                <!-- CATÉGORIE : GÉNÉTIQUE & VISIONS -->
                 <div class="glossary-card" data-cat="science">
                     <div class="glossary-tag science">Génétique</div>
-                    <h4>CRISPR-Cas9</h4>
-                    <p>Technologie de "ciseaux moléculaires" permettant de couper et modifier l'ADN avec précision. C'est l'outil pivot qui permet de supprimer les gènes porcins incompatibles (KO) et d'insérer des gènes humains (KI).</p>
+                    <h4>KO / KI (Knock-Out & Knock-In)</h4>
+                    <p>Le <strong>Knock-Out</strong> consiste à inactiver un gène (ex: GGTA1) pour supprimer un antigène. Le <strong>Knock-In</strong> consiste à insérer un gène (ex: hCD46) pour "humaniser" la réponse de l'organe.</p>
+                </div>
+
+                <div class="glossary-card" data-cat="science">
+                    <div class="glossary-tag science">Épistémologie</div>
+                    <h4>Maximalisme Génomique</h4>
+                    <p>Vision scientifique visant à multiplier les modifications génétiques (parfois plus de 60) pour saturer les barrières biologiques et réduire l'inconnu avant la greffe.</p>
+                </div>
+
+                <!-- CATÉGORIE : IMMUNOLOGIE -->
+                <div class="glossary-card" data-cat="science">
+                    <div class="glossary-tag science">Immunologie</div>
+                    <h4>Co-stimulation (CD40/CD40L)</h4>
+                    <p>Signal "numéro 2" indispensable à l'activation des lymphocytes. Son blocage via des anticorps spécifiques est le verrou actuel pour empêcher le démarrage de la réponse immunitaire intense contre le greffon porcin.</p>
                 </div>
 
                 <div class="glossary-card" data-cat="science">
                     <div class="glossary-tag science">Immunologie</div>
-                    <h4>Alpha-Gal (α-Gal)</h4>
-                    <p>Molécule de sucre présente à la surface des cellules de porc. Elle est responsable du <strong>rejet hyperaigu</strong> car le système immunitaire humain possède naturellement des anticorps contre elle.</p>
+                    <h4>Immunosuppression d'entretien</h4>
+                    <p>Traitement de fond (stéroïdes, calcineurine) qui module la réponse immunitaire une fois engagée, par opposition au blocage de la co-stimulation qui agit en amont.</p>
                 </div>
 
-                <!-- CATÉGORIE : ÉTHIQUE -->
+                <!-- CATÉGORIE : BIOSÉCURITÉ -->
+                <div class="glossary-card" data-cat="risque">
+                    <div class="glossary-tag risque">Biosécurité</div>
+                    <h4>DPF / SPF</h4>
+                    <p><strong>Designated Pathogen-Free</strong>. Statut sanitaire d'animaux élevés en milieu clos (barrière), garantis exempts de virus ou bactéries spécifiques susceptibles de provoquer des zoonoses chez l'humain.</p>
+                </div>
+
+                <div class="glossary-card" data-cat="risque">
+                    <div class="glossary-tag risque">Biosécurité</div>
+                    <h4>PERV (Rétrovirus Endogènes)</h4>
+                    <p>Séquences virales intégrées au génome du porc. Leur inactivation via CRISPR est un enjeu majeur de la vision maximaliste pour prévenir tout risque pandémique.</p>
+                </div>
+
+                <!-- CATÉGORIE : ÉCONOMIE & PHILOSOPHIE -->
                 <div class="glossary-card" data-cat="ethique">
-                    <div class="glossary-tag ethique">Éthique</div>
-                    <h4>Principe des 3R</h4>
-                    <p>Cadre directeur de l'expérimentation animale : <strong>Remplacer</strong> (trouver d'autres méthodes), <strong>Réduire</strong> (le nombre d'animaux), et <strong>Raffiner</strong> (minimiser la souffrance).</p>
+                    <div class="glossary-tag ethique">Économie</div>
+                    <h4>Bundle Thérapeutique</h4>
+                    <p>Modèle industriel où l'organe n'est plus vendu seul, mais comme un "paquet" indissociable comprenant le greffon, les médicaments propriétaires, les dispositifs de perfusion et le monitoring.</p>
                 </div>
 
                 <div class="glossary-card" data-cat="ethique">
                     <div class="glossary-tag ethique">Philosophie</div>
-                    <h4>Chimérisme</h4>
-                    <p>Coexistence au sein d'un même organisme de cellules ayant des origines génétiques différentes. Dans la XTP, cela pose la question de la "frontière" entre l'humain et l'animal.</p>
+                    <h4>Réification du Vivant</h4>
+                    <p>Processus consistant à traiter un être vivant (le porc) comme une "chose" ou un dispositif médical programmable, brevetable et interchangeable.</p>
                 </div>
 
-                <!-- CATÉGORIE : RISQUES -->
-                <div class="glossary-card" data-cat="risque">
-                    <div class="glossary-tag risque">Sécurité</div>
-                    <h4>DPF (Pathogen Free)</h4>
-                    <p>Statut sanitaire d'animaux élevés dans des conditions de confinement total ("bulles"), garantis sans germes spécifiques (virus, bactéries) pour éviter toute transmission à l'humain.</p>
-                </div>
-
-                <div class="glossary-card" data-cat="risque">
-                    <div class="glossary-tag risque">Santé Publique</div>
-                    <h4>Zoonose</h4>
-                    <p>Maladie ou infection qui se transmet naturellement des animaux vertébrés à l'homme. Le risque majeur de la XTP est la réactivation de rétrovirus porcins endogènes (PERV).</p>
-                </div>
-
-                <!-- CATÉGORIE : MÉDECINE -->
                 <div class="glossary-card" data-cat="science">
-                    <div class="glossary-tag science">Médecine</div>
-                    <h4>Allogreffe</h4>
-                    <p>Transplantation entre deux individus de la même espèce (ex: d'humain à humain). C'est la méthode de référence actuelle, limitée par la pénurie d'organes.</p>
+                    <div class="glossary-tag science">Anatomie</div>
+                    <h4>GHR-KO (Growth Hormone Receptor)</h4>
+                    <p>Inactivation du récepteur de l'hormone de croissance visant à limiter la taille de l'organe porcin (notamment le cœur) pour qu'il reste compatible avec la cage thoracique humaine.</p>
                 </div>
 
                 <div class="glossary-card" data-cat="science">
-                    <div class="glossary-tag science">Immunologie</div>
-                    <h4>Immunosuppression</h4>
-                    <p>Traitement médicamenteux visant à diminuer les défenses immunitaires du receveur pour éviter le rejet du greffon, augmentant cependant la vulnérabilité aux infections.</p>
+                    <div class="glossary-tag science">Médecine</div>
+                    <h4>Allogreffe vs Xénogreffe</h4>
+                    <p>L'<strong>allogreffe</strong> est une greffe d'humain à humain (système actuel en pénurie). La <strong>xénogreffe</strong> est une greffe d'une espèce vers une autre (le futur biotechnologique).</p>
                 </div>
+
+                <!-- NOUVEAU TERME : GGTA1 -->
+<div class="glossary-card" data-cat="science">
+    <div class="glossary-tag science">Génétique / Immunologie</div>
+    <h4>GGTA1</h4>
+    <p>Gène codant pour l'enzyme responsable de la synthèse du sucre <strong>alpha-Gal</strong> à la surface des cellules de porc. Son inactivation (KO) est la première étape indispensable pour stopper le rejet hyperaigu immédiat par le système immunitaire humain.</p>
+</div>
+
+<!-- NOUVEAU TERME : hCD46 -->
+<div class="glossary-card" data-cat="science">
+    <div class="glossary-tag science">Génétique / Immunologie</div>
+    <h4>hCD46</h4>
+    <p>Transgène humain inséré dans le porc (KI) pour réguler le système du <strong>complément</strong>. Il agit comme un bouclier protégeant les cellules du greffon contre l'attaque du système immunitaire inné du receveur.</p>
+</div>
+
+<!-- NOUVEAU TERME : hTBM -->
+<div class="glossary-card" data-cat="science">
+    <div class="glossary-tag science">Génétique / Immunologie</div>
+    <h4>hTBM (Thrombomoduline humaine)</h4>
+    <p>Protéine humaine exprimée par le porc donneur pour réguler la <strong>coagulation sanguine</strong>. Elle prévient la formation de caillots et les micro-thromboses qui pourraient détruire l'organe xénogénique peu après la greffe.</p>
+</div>
+
+<!-- NOUVEAU TERME : ORTHOTOPIQUE -->
+<div class="glossary-card" data-cat="science">
+    <div class="glossary-tag science">Chirurgie</div>
+    <h4>Orthotopique</h4>
+    <p>Technique chirurgicale consistant à implanter l'organe donneur à l'emplacement anatomique exact de l'organe d'origine après son retrait (ex: remplacer un cœur malade par un cœur de porc au même endroit). Par opposition à <em>hétérotopique</em> (greffe en supplément).</p>
+</div>
+
+<!-- NOUVEAU TERME : GMP -->
+<div class="glossary-card" data-cat="risque">
+    <div class="glossary-tag risque">Réglementation</div>
+    <h4>GMP (Bonnes Pratiques de Fabrication)</h4>
+    <p>Ensemble de normes de qualité strictes imposées par les autorités (FDA, ANSM) pour la production des médicaments et, par extension, des porcs donneurs. Elles garantissent une traçabilité, une stérilité et une reproductibilité totale du "produit" thérapeutique.</p>
+</div>
 
             </div>
         </div>
