@@ -147,15 +147,15 @@ const UI = {
     },
 
     // --- Fonction d'ouverture de la Sidebar (Générique) ---
-   openSidebar(d) {
+  openSidebar(d) {
     const sb = document.getElementById('sidebar');
     const img = document.getElementById('sb-img');
     const content = document.getElementById('sb-dynamic-content');
 
     if (img) img.src = d.img;
     
-    // Gérer l'extension de la sidebar pour les sections denses
-    if (d.id === 'h2' || d.id === 'f_philo' || d.id === 'f_droit' || d.id === 'p3' || d.id === 'h1' || d.id === 'f_public' ||d.side === 'pig' || d.id === 'visions_science') {
+    // Élargissement spécifique (Porc ou Dossier Expert)
+    if (d.side === 'pig' || d.id === 'visions_science') {
         sb.classList.add('expanded');
     } else {
         sb.classList.remove('expanded');
@@ -164,31 +164,39 @@ const UI = {
     sb.classList.add('active');
     sb.scrollTop = 0;
 
-    // --- LOGIQUE DU BOUTON BIBLIO AUTOMATIQUE ---
+    // Gestion du bouton bibliographie
     let biblioBtnHTML = "";
-    // On vérifie si l'objet d a un biblio_id (pour XENO_DATA) ou s'il est dans PHARMA_SUBS
     const targetBiblioId = d.biblio_id || (PHARMA_SUBS[d.id] ? d.id : null);
 
     if (targetBiblioId) {
         biblioBtnHTML = `
-            <div class="biblio-container" style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
-                <a href="biblio.html?section=${targetBiblioId}" target="_blank" class="page-link-btn" style="background:#e57373; color:white; border:none; display:inline-block; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 0.8rem; font-weight: 800; text-transform: uppercase;">
+            <div class="biblio-container" style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 25px;">
+                <a href="biblio.html?section=${targetBiblioId}" target="_blank" class="page-link-btn" style="background:#e57373; color:white; border:none; display:inline-block; padding: 12px 25px; border-radius: 5px; text-decoration: none; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">
                     Ouvrir la bibliographie complète
                 </a>
             </div>
         `;
     }
 
+    // GÉNÉRATION DU CONTENU
     content.innerHTML = `
-        <span style="text-transform:uppercase; font-size:0.75rem; font-weight:800; color:#999; letter-spacing:1px;">${d.cat}</span>
-        <h2 class="sb-title">${d.title}</h2>
-        <div class="sb-desc" style="margin-top:20px;">
+        <span style="text-transform:uppercase; font-size:0.7rem; font-weight:800; color:#bbb; letter-spacing:2px;">${d.cat}</span>
+        <h2 class="sb-title" style="margin-top:10px; font-family: var(--font-serif); font-size: 2rem;">${d.title}</h2>
+        
+        <div class="sb-desc" style="margin-top:25px; line-height:1.8;">
             ${d.desc} 
         </div>
-        <div class="sb-box">
-            <h4 style="margin:0 0 10px 0; font-size:0.8rem; color:#999; text-transform:uppercase;">Analyse STS</h4>
-            <p style="margin:0; font-style:italic; font-size:0.95rem; color:#444;">${d.sts}</p>
+        
+        <!-- LE BLOC "NOTE DE L'OBSERVATOIRE" UNIFIÉ -->
+        <div class="sb-box" style="border: none; background: #fdfdfd; border-left: 3px solid var(--friction-main); padding: 30px; margin-top: 50px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border-radius: 0 12px 12px 0;">
+            <h4 style="margin:0 0 15px 0; font-size:0.75rem; color:#aaa; text-transform:uppercase; letter-spacing:3px; font-weight:800;">
+                Note de l'Observatoire
+            </h4>
+            <p style="margin:0; font-style:italic; font-size:1rem; color:#444; line-height:1.7;">
+                ${d.sts}
+            </p>
         </div>
+        
         ${biblioBtnHTML}
     `;
 },

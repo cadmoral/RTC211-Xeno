@@ -825,87 +825,129 @@ body {
     border-radius: 4px;
 }
 
-/* --- STYLES ONBOARDING (INTRO POPUP) --- */
+/* --- STYLE ONBOARDING (POPUP D'INTRO) AGRANDIE --- */
 
 .onboarding-box {
-    max-width: 650px !important;
+    max-width: 950px !important; /* Augmenté de 650px à 950px */
+    width: 90%;
     border-top: 6px solid var(--friction-main) !important;
+    padding: 50px 60px !important; /* Plus d'espace interne */
+    max-height: 92vh; /* Pour s'assurer qu'elle ne dépasse jamais l'écran */
+    display: flex;
+    flex-direction: column;
 }
 
 .onboarding-header {
     text-align: center;
-    margin-bottom: 30px;
-}
-
-.onboarding-tag {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    color: var(--friction-main);
-    font-weight: 800;
-    margin-bottom: 10px;
+    margin-bottom: 35px;
 }
 
 .onboarding-title {
     font-family: var(--font-serif);
-    font-size: 2.2rem;
+    font-size: 2.8rem; /* Titre plus majestueux */
     line-height: 1.1;
     color: var(--text-dark);
+    margin-top: 10px;
 }
 
 .onboarding-lead {
-    font-size: 1.1rem;
+    font-size: 1.2rem; /* Texte d'intro plus lisible */
     line-height: 1.6;
     color: #555;
     text-align: center;
-    margin-bottom: 40px;
-    font-family: var(--font-serif);
+    margin-bottom: 45px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.onboarding-grid {
+/* --- STRUCTURE EN 3 COLONNES (DESKTOP) --- */
+.onboarding-structure-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes sur PC */
     gap: 25px;
+    margin-bottom: 40px;
+}
+
+.structure-card {
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 25px 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+/* --- OUTILS EN 4 COLONNES (DESKTOP) --- */
+.onboarding-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colonnes sur PC pour gagner de la hauteur */
+    gap: 15px;
     margin-bottom: 30px;
 }
 
-.ob-item {
-    display: flex;
-    gap: 15px;
-}
-
-.ob-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin-top: 5px;
-    flex-shrink: 0;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.ob-item h4 {
-    margin: 0 0 5px 0;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.ob-item p {
-    margin: 0;
-    font-size: 0.85rem;
-    color: #777;
-    line-height: 1.4;
-}
-
-.onboarding-tips {
-    background: #fdfdfd;
-    border: 1px solid #eee;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    color: #888;
+.tool-card {
+    flex-direction: column; /* Icône au dessus du texte sur PC */
     text-align: center;
+    padding: 15px;
 }
+
+.tool-icon {
+    margin-bottom: 10px;
+}
+
+/* --- AJUSTEMENTS RÉDACTIONNELS --- */
+.ob-section-title {
+    text-align: center;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #bbb;
+    margin-bottom: 20px;
+}
+
+/* =========================================
+   AJUSTEMENTS MOBILES (SMARTPHONES)
+   ========================================= */
+
+@media (max-width: 950px) {
+    .onboarding-box {
+        padding: 30px 20px !important;
+        width: 95%;
+        max-height: 95vh;
+    }
+
+    .onboarding-title {
+        font-size: 1.8rem;
+    }
+
+    .onboarding-lead {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+
+    /* Passage en 1 colonne pour mobile */
+    .onboarding-structure-grid {
+        grid-template-columns: 1fr; 
+        gap: 15px;
+    }
+
+    /* Passage en 2 colonnes pour les outils sur mobile */
+    .onboarding-tools-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .tool-card {
+        padding: 10px;
+    }
+
+    .tool-content h4 {
+        font-size: 0.75rem;
+    }
+}
+
+
 
 
 /* --- STYLES DU GLOSSAIRE --- */
@@ -1408,5 +1450,15 @@ body {
 @media (max-width: 600px) {
     .onboarding-structure-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Fix pour très petits écrans (iPhone SE / Flip) */
+@media (max-height: 700px) {
+    .onboarding-box {
+        overflow-y: auto; /* Réactive le scroll si l'écran est vraiment trop petit */
+    }
+    .onboarding-lead {
+        display: none; /* Cache le texte d'intro pour laisser place aux outils */
     }
 }

@@ -349,9 +349,55 @@ const XENO_DATA = [
         id: 'h4', side: 'human', cat: 'Bio-Économie', title: 'Le Coût de la Survie',
         img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=600&q=80',
         y: 45, // Aligné MILIEU
-        desc: "Technologie de luxe : une humanité à deux vitesses ?",
-        sts: "Biopolitique : sélection économique du droit de vivre."
-    },
+        desc: `
+            <div class="back-btn" onclick="UI.restoreParentMain('h4')">← Retour au dossier</div>
+
+            <p style="margin-bottom: 25px;">Cette analyse documente le basculement d'un modèle de solidarité nationale (don) vers une infrastructure de marché où l'organe est indissociable du traitement pharma.</p>
+
+            <!-- SECTION I -->
+            <details style="margin-bottom: 20px; border: 1px solid #eee; border-radius: 12px; background: #fff; overflow: hidden;">
+                <summary style="padding: 20px; font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; cursor: pointer; background: #fdfdfd; list-style: none; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee;">
+                    <span>I. Le régime thérapeutique : un assemblage</span>
+                    <span style="color: var(--friction-main);">▼</span>
+                </summary>
+                <div style="padding: 25px; line-height: 1.7; color: #444;">
+                    <p><strong>La réussite XTP repose sur un assemblage (Bundle) :</strong></p>
+                    <ul style="padding-left: 20px;">
+                        <li>Co-stimulation (CD40/CD40L) = brique pivot propriétaire.</li>
+                        <li>Immunosuppression d’entretien (calcineurine, stéroïdes, etc.).</li>
+                        <li>Surveillance et diagnostics (biomarqueurs, imagerie).</li>
+                    </ul>
+                    <p>La valeur économique bascule vers un <strong>business model bio-pharmaceutique</strong> fondé sur la continuité du soin plutôt que sur un événement ponctuel.</p>
+                </div>
+            </details>
+
+            <!-- SECTION II -->
+            <details style="margin-bottom: 20px; border: 1px solid #eee; border-radius: 12px; background: #fff; overflow: hidden;">
+                <summary style="padding: 20px; font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; cursor: pointer; background: #fdfdfd; list-style: none; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee;">
+                    <span>II. Co-stimulation et Dépendance</span>
+                    <span style="color: var(--friction-main);">▼</span>
+                </summary>
+                <div style="padding: 25px; line-height: 1.7; color: #444;">
+                    <p><strong>L'axe CD40/CD40L</strong> est le verrou technique qui sécurise le marché. Bloquer cet axe est indispensable à la survie du greffon, créant une rente pour les détenteurs de ces molécules (Novartis, Eledon, Kiniksa).</p>
+                    <p><strong>Coût + chronicité :</strong> Le patient "à vie" sous suivi/traitements transforme l'acte médical en un service récurrent à haute valeur ajoutée.</p>
+                </div>
+            </details>
+
+            <!-- SECTION III -->
+            <details style="margin-bottom: 20px; border: 1px solid #eee; border-radius: 12px; background: #fff; overflow: hidden;">
+                <summary style="padding: 20px; font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; cursor: pointer; background: #fdfdfd; list-style: none; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee;">
+                    <span>III. Alliances et Co-production</span>
+                    <span style="color: var(--friction-main);">▼</span>
+                </summary>
+                <div style="padding: 25px; line-height: 1.7; color: #444;">
+                    <p><strong>Partenariat eGenesis–Eledon (2023) :</strong> Accès au <em>tegoprubart</em>. Ce cas illustre le couplage plateforme-organe + molécule pharma. La viabilité du greffon est liée contractuellement à des molécules spécifiques.</p>
+                    <a href="https://ir.eledon.com/" target="_blank" style="color: var(--friction-main); font-weight: 800;">Consulter le portail investisseurs d'Eledon →</a>
+                </div>
+            </details>
+        `,
+        sts: "Biopolitique : sélection économique du droit de vivre.",
+        real: "Marché estimé à 25 milliards de dollars d'ici 2030 (Grand View Research).",
+    biblio_id: "eco_market"     },
     // h2 - Communautés Religieuses (Affichage direct du format sous-section)
     {
         id: 'h2', 
@@ -1321,9 +1367,54 @@ Lebranchu Y. Rapport 25-07. Les xénogreffes d’organes, de tissus et de cellul
 
     // 1. ÉCONOMIE & MARCHÉ
     'eco_market': {
-        title: "Le Marché de la Xénogreffe",
-        content: `<ul><li><strong>Modèle :</strong> Passage d'un don gratuit (organes humains) à un produit tarifé industriel (organes animaux).</li><li><strong>Coût-Efficacité :</strong> Une transplantation coûte ~80k€ une fois, contre ~60k€/an pour la dialyse à vie. L'État a intérêt à payer.</li></ul><br>
-        L'argument économique est un moteur silencieux de la XTP. Les fonds d'investissement (Capital-Risque) parient sur le fait que les systèmes de santé préféreront payer cher une fois pour "réparer" le patient plutôt que de payer des soins chroniques. Cependant, le coût de production des porcs DPF (élevés en bulles stériles) reste considérable.`,
+        title: "Dossier : Économie de la Xéno",
+        content: `
+            <div class="back-btn" onclick="UI.restoreParentMain('h4')">← Retour au dossier</div>
+
+            <!-- SECTION I : LE MARCHÉ -->
+            <details style="margin-bottom: 20px; border: 1px solid #eee; border-radius: 12px; background: #fff; overflow: hidden;" open>
+                <summary style="padding: 20px; font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; cursor: pointer; background: #fdfdfd; list-style: none; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee;">
+                    <span>I. Mécanismes du Marché</span>
+                    <span style="color: var(--friction-main);">▼</span>
+                </summary>
+                <div style="padding: 25px; line-height: 1.7; color: #444;">
+                    <ul style="padding-left: 20px;">
+                        <li><strong>Nouveau marché :</strong> Développement d'une alternative économique jugée à "faible coût" comparé à la dialyse chronique (≈ 1M€/vie).</li>
+                        <li><strong>Création d'industries :</strong> Passage d'une logique de "don" à une production industrielle d'organes standardisés.</li>
+                        <li><strong>Effet Promesse :</strong> Valorisation boursière des biotechs (United Therapeutics, eGenesis) fondée sur l'urgence vitale.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- SECTION II : LE COÛT DE LA SURVIE (VOTRE TEXTE) -->
+            <details style="margin-bottom: 20px; border: 1px solid #eee; border-radius: 12px; background: #fffaf0; overflow: hidden;">
+                <summary style="padding: 20px; font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; cursor: pointer; background: #fffef9; list-style: none; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #fce8b2;">
+                    <span>II. Le Coût de la Survie : Sélection Économique</span>
+                    <span style="color: #d4a017;">▼</span>
+                </summary>
+                <div style="padding: 25px; line-height: 1.7; color: #444;">
+                    <p style="font-style: italic; color: #555;">« Technologie de luxe : une humanité à deux vitesses ? »</p>
+                    <p>L'accès à la xénotransplantation pose le risque d'une <strong>sélection économique du droit de vivre</strong>. En transformant l'organe en produit manufacturé protégé par des brevets, on crée une barrière financière qui pourrait exclure les populations les plus précaires ou les pays du Sud.</p>
+                    <p>C'est une <strong>biopolitique</strong> où la survie est conditionnée par la solvabilité ou les garanties des assurances privées.</p>
+                </div>
+            </details>
+
+            <!-- SECTION III : IMPACT DANS LA CONTROVERSE -->
+            <details style="margin-bottom: 20px; border: 1px solid #eee; border-radius: 12px; background: #fff; overflow: hidden;">
+                <summary style="padding: 20px; font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; cursor: pointer; background: #fdfdfd; list-style: none; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee;">
+                    <span>III. Tensions & Risques Systémiques</span>
+                    <span style="color: var(--friction-main);">▼</span>
+                </summary>
+                <div style="padding: 25px; line-height: 1.7; color: #444;">
+                    <div style="padding-left: 15px; border-left: 3px solid var(--friction-main);">
+                        <strong>Privatisation :</strong> Crainte de voir le secteur de la greffe basculer entièrement sous contrôle privé.
+                    </div>
+                    <div style="padding-left: 15px; border-left: 3px solid var(--friction-main); margin-top: 15px;">
+                        <strong>Coûts sociaux lourds :</strong> Si le profit est privé, la surveillance infectieuse (zoonoses) et les risques systémiques restent souvent à la charge des institutions publiques.
+                    </div>
+                </div>
+            </details>
+        `,
         real: "Marché estimé à 25 milliards de dollars d'ici 2030 (Grand View Research).",
         biblio: `Krebs, C. E., McCarthy, J., Sullivan, K., Craner, J., Parent, B., & Lam, A. (2025). "Considering the Risks and Costs of Solid Organ Xenotransplantation". *Advanced Biology*. https://doi.org/10.1002/adbi.202400453
 
@@ -1336,7 +1427,7 @@ Precedence Research. (2024). "Xenotransplantation Market Size, Share and Trends 
 Zhang, Y., Gerdtham, U. G., Rydell, H., et al. (2023). "Healthcare costs after kidney transplantation compared to dialysis based on propensity score methods and real world longitudinal register data from Sweden". *Scientific Reports*, 13, 10730. https://doi.org/10.1038/s41598-023-37814-6
 
 Griffith, B. P., et al. (2022). "Genetically Modified Porcine-to-Human Cardiac Xenotransplantation". *NEJM*. https://www.nejm.org/doi/full/10.1056/NEJMoa2201422`
-    },
+},
 
     // 2. ÉTHIQUE ANIMALE
     'ethique_animal': { 
@@ -1482,6 +1573,8 @@ Andrade G, et al. Moral approval of xenotransplantation in Egypt: associations w
 Al-Haboubi M, et al. Public views on xenotransplantation from the first representative sample survey in the UK. The Lancet 2025; 406(10508):1083-1085.`
     },
 
+   
+   
     // 4. RELIGION (Design stylisé & Contenu complet)
     'religion_detail': { 
         title: "Positions Religieuses & Culturelles", 
@@ -1773,7 +1866,7 @@ const RATIONALITY_DATA = [
         cat: 'Universités & Labos', 
         title: 'Rationalité Scientifique',
         img: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80',
-        y: 30,
+        y: 25,
         desc: `
             <!-- EN-TÊTE : ACTEURS -->
             <div style="background: #7298be; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
@@ -1858,13 +1951,13 @@ const RATIONALITY_DATA = [
                 </button>
             </div>
         `,
-        sts: "La science comme arène de paradigmes concurrents. Cadre de légitimité : elle définit ce qui est 'naturel' et 'faisable' pour la société."
+        sts: "La science est un champ de production et de confrontation des savoirs. Elle établit un cadre de légitimité : elle définit ce qui est 'naturel' et 'faisable' pour la société."
     },
     
     {
         id: 'r_pharma', side: 'pig', cat: 'Industrie Pharma', title: 'Rationalité Thérapeutique',
         img: 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=600&q=80',
-        y: 70,
+        y: 75,
         desc: `
             <div class="pharma-intro-header">
                 <p><strong>Acteurs Clés :</strong> Eledon Pharmaceuticals, Novartis, eGenesis, Revivicor et partenaires universitaires.</p>
@@ -1904,7 +1997,7 @@ const RATIONALITY_DATA = [
                 <button class="page-link-btn" onclick="UI.loadDetailSub('alliances', 'r_pharma')">Voir détail sur l'industrie pharma</button>
                              
             </div>`,
-        sts: "Le vivant devient un produit manufacturé (Biocaptalisme)."
+        sts: "Le vivant est progressivement traité comme un objet de production industrielle, relevant de logiques biocapitalistes."
     },
 
     // --- CENTRE : LES MÉDIATEURS / FRICTIONS (3 cartes) ---
@@ -1942,51 +2035,77 @@ const RATIONALITY_DATA = [
                 </p>
                 <button class="page-link-btn" onclick="UI.loadDetailSub('socio_public', 'r_public')">Voir détail Acceptabilité</button>
             </div>`, 
-        sts: "L'opinion publique comme gatekeeper (gardien du seuil)." 
+        sts: "L’opinion publique agit comme un gardien du seuil, conditionnant l’acceptabilité sociale des innovations scientifiques et techniques." 
     },
 
     // 2. L'ÉCONOMIE (Reste au Milieu)
-{ 
-        id: 'r_eco', side: 'friction', cat: 'Sphère Économique', title: 'Rationalité Industrielle', 
+{
+        id: 'r_eco', 
+        side: 'friction', 
+        cat: 'Sphère Économique', 
+        title: 'Rationalité Industrielle', 
         img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Cromemco_C-10_computer_production_line_%281983%29.jpg/2560px-Cromemco_C-10_computer_production_line_%281983%29.jpg?auto=format&fit=crop&w=600&q=80', 
         y: 50, 
         desc: `
-            <div class="pharma-intro-header">
-                <p><strong>Acteurs Clés :</strong> United Therapeutics, eGenesis, Revivicor, Fonds de capital biotech & santé, Systèmes de santé, Pouvoirs étatiques.</p>
-                <p>Positionnement <strong>Favorable</strong>.</p>
-            </div>
-
-            <div class="pharma-section">
-                <h3>Arguments Économiques</h3>
-                <ul>
-                    <li><strong>Nouveau Marché :</strong> Création de nouvelles industries et développement d'une alternative économique jugée à faible coût comparé aux méthodes actuelles (allogreffe, dialyse chronique).</li>
-                    <li><strong>Croissance :</strong> Potentiel de rentabilité et création de valeur industrielle.</li>
-                </ul>
-            </div>
-
-            <div class="pharma-section">
-                <h3>Effet dans la controverse</h3>
-                <ul>
-                    <li><strong>Prisme Économique :</strong> La XTP est analysée sous l'angle de la rentabilité, de l'investissement et des parts de marché.</li>
-                    <li><strong>Marchandisation :</strong> Crainte sur la privatisation du secteur et "l'effet promesse" (vendre une technologie avant qu'elle ne soit prête).</li>
-                    <li><strong>Compétitivité :</strong> Enjeu de leadership international.</li>
-                    <li><strong>Coûts cachés :</strong> Les coûts sociaux et institutionnels sont lourds (surveillance infectieuse, risques systémiques).</li>
-                </ul>
-            </div>
-
-            <div class="pharma-section">
-                <h3>Rapports de Force</h3>
-                <p style="margin-top:10px; border-left: 3px solid var(--human-main); padding-left:10px;">
-                    <strong>Alliance Naturelle :</strong><br>
-                    Symbiose totale avec l'<a class="internal-link" onclick="UI.openNodeById('r_pharma')">Industrie Pharma</a> pour construire le marché.
+            <!-- EN-TÊTE : ACTEURS STRATÉGIQUES -->
+            <div style="background: #2c3e50; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.7;">Acteurs de Marché</span>
+                <p style="margin: 5px 0 0 0; font-size: 0.85rem; line-height: 1.4;">
+                    United Therapeutics, eGenesis, Revivicor, Fonds de capital biotech, Systèmes de santé & Pouvoirs étatiques.
                 </p>
-                <p style="margin-top:10px; border-left: 3px solid var(--pig-main); padding-left:10px;">
-                    <strong>Tensions :</strong><br>
-                    Opposition structurelle avec les <a class="internal-link" onclick="UI.openNodeById('r_animal')">Associations</a> qui craignent la dérive lucrative.
-                </p>
-                <button class="page-link-btn" onclick="UI.loadDetailSub('eco_market', 'r_eco')">Voir Analyse Coûts</button>
-            </div>`, 
-        sts: "Le marché comme médiateur de faisabilité." 
+            </div>
+
+            <!-- POSITIONNEMENT -->
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 25px;">
+                <div style="background: #e8f5e9; color: #2e7d32; padding: 5px 15px; border-radius: 20px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;">
+                    Position : FAVORABLE
+                </div>
+            </div>
+
+            <!-- SECTION 1 : LES ARGUMENTS -->
+            <div style="margin-bottom: 25px;">
+                <h3 style="font-family: var(--font-serif); font-size: 1.2rem; border-bottom: 2px solid #eee; padding-bottom: 8px; margin-bottom: 15px;">
+                    1. Logique de Marché
+                </h3>
+                <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
+                    <div style="display: flex; align-items: center; gap: 12px; background: #fff; padding: 10px; border-radius: 6px; border: 1px solid #f0f0f0;">
+                        <span style="font-size: 1.2rem;">📈</span>
+                        <p style="margin:0; font-size:0.85rem;"><strong>Nouveau Marché :</strong> Création d'une industrie de production d'organes standardisés.</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px; background: #fff; padding: 10px; border-radius: 6px; border: 1px solid #f0f0f0;">
+                        <span style="font-size: 1.2rem;">💶</span>
+                        <p style="margin:0; font-size:0.85rem;"><strong>Efficience :</strong> Alternative à "faible coût" face au fardeau financier de la dialyse.</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px; background: #fff; padding: 10px; border-radius: 6px; border: 1px solid #f0f0f0;">
+                        <span style="font-size: 1.2rem;">🏗️</span>
+                        <p style="margin:0; font-size:0.85rem;"><strong>Innovation :</strong> Développement d'une infrastructure bio-industrielle souveraine.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2 : EFFETS DANS LA CONTROVERSE -->
+            <div style="background: #fffdf0; border: 1px solid #fce8b2; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
+                <h3 style="font-family: var(--font-serif); font-size: 1.1rem; margin: 0 0 15px 0; color: #856404;">
+                    2. Tensions & Impacts
+                </h3>
+                <div style="display: flex; flex-direction: column; gap: 12px; font-size: 0.85rem; color: #555;">
+                    <div style="border-left: 3px solid #f39c12; padding-left: 12px;">
+                        <strong>Marchandisation :</strong> Crainte d'une privatisation du secteur et dérive vers un "effet promesse" boursier.
+                    </div>
+                    <div style="border-left: 3px solid #f39c12; padding-left: 12px;">
+                        <strong>Coûts Sociaux :</strong> Si les profits sont privés, la surveillance et les risques zoonotiques restent à la charge du public.
+                    </div>
+                    <div style="border-left: 3px solid #f39c12; padding-left: 12px;">
+                        <strong>Géopolitique :</strong> Enjeu de compétitivité internationale et de leadership technologique.
+                    </div>
+                </div>
+
+                <button class="page-link-btn" style="width: 100%; margin-top: 20px; border-color: #d4a017; color: #d4a017;" onclick="UI.loadDetailSub('eco_market', 'r_eco')">
+                    Ouvrir le Dossier : Coûts et Biopolitique
+                </button>
+            </div>
+        `,
+        sts: "L'incertitude biologique devient un risque financier gérable et une opportunité de croissance économique."
     },
 
     // 3. LA RÉGULATION (Reste en Bas)
@@ -2043,7 +2162,7 @@ const RATIONALITY_DATA = [
                     <button class="page-link-btn" onclick="UI.loadDetailSub('loi_int', 'r_reg')">Voir Modèle International</button>
                 </div>
             </div>`,
-        sts: "La loi transforme une incertitude biologique en risque administrativement gérable."
+        sts: "La régulation agit comme un filtre normatif, encadrant la mise en œuvre des innovations scientifiques selon des critères de sécurité, d’éthique et d’acceptabilité sociale."
     },
 
     // --- DROITE (Côté Receveur) : LA DEMANDE & L'IMPACT (3 cartes) ---
@@ -2106,7 +2225,7 @@ const RATIONALITY_DATA = [
                 </p>
                  <button class="page-link-btn" style="border-color: var(--human-main); color: var(--human-main);" onclick="UI.loadDetailSub('corps_hybride', 'r_patients')">Le Corps Hybride (Asso. Patients)</button>
             </div>`, 
-        sts: "Le corps souffrant comme destination finale." 
+        sts: "Le corps du patient est le point où convergent et s'incarnent les dispositifs de savoir, de pouvoir et de régulation." 
     },
 
     // 2. RELIGION
@@ -2135,7 +2254,7 @@ const RATIONALITY_DATA = [
                 <p>Les autorités religieuses jouent un <strong>rôle d’arbitrage</strong> essentiel entre les interdits moraux traditionnels et la nécessité médicale contemporaine.</p>
                <button class="page-link-btn" onclick="UI.loadDetailSub('religion_detail', 'r_relig')">Voir Détails Théologiques</button>
             </div>`, 
-        sts: "La religion négocie les frontières du pur et de l'impur." 
+        sts: "Les référents religieux orientent la perception des limites éthiques liées aux interventions technoscientifiques" 
     },
 
     // 3. DÉFENSE ANIMALE
@@ -2181,6 +2300,6 @@ const RATIONALITY_DATA = [
                 </p>
                 <button class="page-link-btn" onclick="UI.loadDetailSub('ethique_animal', 'r_animal')">Voir Plus</button>
             </div>`,
-        sts: "La voix de ceux qui ne parlent pas (les animaux)."
+        sts: "Le vivant non humain est un objet de représentation plus qu'un sujet de parole. Leur parole est médiée et traduite par des acteurs humains et institutionnels"
     }
 ];
